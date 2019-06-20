@@ -48,7 +48,7 @@
     },
     //
     $.Portlet = new Portlet, $.Portlet.Constructor = Portlet
-    
+
 }(window.jQuery),
 
 function($) {
@@ -60,7 +60,7 @@ function($) {
     };
 
 
-    /** 
+    /**
      * Initlizes the select2
     */
     AdvanceFormApp.prototype.initSelect2 = function() {
@@ -68,7 +68,7 @@ function($) {
         $('[data-toggle="select2"]').select2();
     },
 
-    /** 
+    /**
      * Initlized mask
     */
     AdvanceFormApp.prototype.initMask = function() {
@@ -169,7 +169,7 @@ function($) {
         });
     },
 
-    /** 
+    /**
      * Initilize
     */
    AdvanceFormApp.prototype.init = function() {
@@ -202,10 +202,10 @@ function($) {
      * @param {*} loaderBgColor loader background color
      * @param {*} icon icon which needs to be displayed
      * @param {*} hideAfter automatically hide after seconds
-     * @param {*} stack 
+     * @param {*} stack
      */
     NotificationApp.prototype.send = function(heading, body, position, loaderBgColor, icon, hideAfter, stack, showHideTransition) {
-        // default      
+        // default
         if (!hideAfter)
             hideAfter = 3000;
         if (!stack)
@@ -315,7 +315,7 @@ function ($) {
             touchScrollStep: 20
         });
     },
-    /** 
+    /**
      * Initlizes the menu - top and sidebar
     */
     App.prototype.initMenu = function () {
@@ -355,7 +355,7 @@ function ($) {
                 return;
             }
 
-            if ($(e.target).closest('.left-side-menu, .side-nav').length > 0 || $(e.target).hasClass('button-menu-mobile') 
+            if ($(e.target).closest('.left-side-menu, .side-nav').length > 0 || $(e.target).hasClass('button-menu-mobile')
                 || $(e.target).closest('.button-menu-mobile').length > 0) {
                 return;
             }
@@ -381,7 +381,7 @@ function ($) {
 
         $(".topnav-menu li a").each(function () {
             var pageUrl = window.location.href.split(/[?#]/)[0];
-            if (this.href == pageUrl) {  
+            if (this.href == pageUrl) {
                 $(this).addClass("active");
                 $(this).parent().parent().addClass("active"); // add active to li of the current link
                 $(this).parent().parent().parent().parent().addClass("active");
@@ -400,12 +400,12 @@ function ($) {
             }
             var $subMenu = $(this).next(".dropdown-menu");
             $subMenu.toggleClass('show');
-    
+
             return false;
         });
     },
 
-        /** 
+        /**
          * Init the layout - with broad sidebar or compact side bar
         */
         App.prototype.initLayout = function () {

@@ -37,10 +37,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 //const Swal = window.Swal = require('sweetalert2')
-const Pruebas  = require('./varios/pruebas')
+//const Pruebas  = require('./varios/pruebas')
 const metisMenu = require('metismenu');
 const slimscroll  = require('jquery-slimscroll');
 const select2   = require('select2');
-let moment   = require('moment');
-
-
+const moment = window.moment  = require('moment');

@@ -11,9 +11,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('admin/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/icons.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app" class="auth-fluid-pages pb-0">
+<body class="auth-fluid-pages pb-0">
+    <div id="app">
         <div class="auth-fluid">
             <!--Auth fluid left content -->
             <div class="auth-fluid-form-box">
@@ -23,7 +24,7 @@
                         <!-- Logo -->
                         <div class="auth-brand text-center text-lg-left">
                             <a href="index.html">
-                                <span><img src="assets/images/logo-light.png" alt="" height="18"></span>
+                                <span><img src="{{ asset('admin/images/logo-light.png') }}" alt="" height="18"></span>
                             </a>
                         </div>
 
@@ -95,18 +96,10 @@
             </div>
             <!-- end Auth fluid right content -->
         </div>
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('admin/js/app.js') }}" defer></script>
     <script src="{{ asset('admin/js/main.js') }}" defer></script>
-    <script>
-        jquery(document).ready(function(){
-        console.log(moment());
-    });
-    </script>
 </body>
 </html>
