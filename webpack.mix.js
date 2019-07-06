@@ -15,5 +15,5 @@ mix.js('resources/admin/js/app.js', 'public/admin/js')
     .js('resources/admin/js/main.js', 'public/admin/js')
     //.js('resources/front/js/app.js', 'public/front/js')
     .sass('resources/admin/sass/app.scss', 'public/admin/css')
-    .sass('resources/admin/sass/icons.scss', 'public/admin/css').sourceMaps();
+    .sass('resources/admin/sass/icons.scss', 'public/admin/css');
     //.sass('resources/front/sass/app.scss', 'public/front/css');

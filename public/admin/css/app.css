@@ -11116,7 +11116,7 @@ body[data-layout=detached].enlarged .wrapper .footer {
 }
 
 .leftbar-user {
-  background: url(/images/waves.png?a8841c6ad521400c11832cab72463669) no-repeat;
+  background: url("/admin/images/waves.png") no-repeat;
   padding: 30px 20px;
   text-align: center;
 }
@@ -11821,24 +11821,24 @@ body[data-layout=detached] .footer .container-fluid {
 
 @font-face {
   font-family: "Nunito";
-  src: url(/fonts/Nunito-Regular.eot?663e3719c27dbac9b8224678b5632cea);
-  src: local("Nunito Regular"), local("Nunito-Regular"), url(/fonts/Nunito-Regular.eot?663e3719c27dbac9b8224678b5632cea?#iefix) format("embedded-opentype"), url(/fonts/Nunito-Regular.woff?0b6a4ca6f3ae3d6fa835b10169786960) format("woff"), url(/fonts/Nunito-Regular.ttf?65bb0a158ee1967292ee4d11079d45ae) format("truetype"), url(/fonts/Nunito-Regular.svg?83288e12526bea0e6436a80e51c68c96#Roboto) format("svg");
+  src: url("/admin/fonts/Nunito-Regular.eot");
+  src: local("Nunito Regular"), local("Nunito-Regular"), url("/admin/fonts/Nunito-Regular.eot?#iefix") format("embedded-opentype"), url("/admin/fonts/Nunito-Regular.woff") format("woff"), url("/admin/fonts/Nunito-Regular.ttf") format("truetype"), url("/admin/fonts/Nunito-Regular.svg#Roboto") format("svg");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Nunito";
-  src: url(/fonts/Nunito-SemiBold.eot?b3cbb9c96a9a4f52d454b9b5100e82f5);
-  src: local("Nunito SemiBold"), local("Nunito-SemiBold"), url(/fonts/Nunito-SemiBold.eot?b3cbb9c96a9a4f52d454b9b5100e82f5?#iefix) format("embedded-opentype"), url(/fonts/Nunito-SemiBold.woff?e7ea8f78de534e08248fe3bf9689b5fa) format("woff"), url(/fonts/Nunito-SemiBold.ttf?713ac08dfb7141494d4a69f344ff69fd) format("truetype"), url(/fonts/Nunito-SemiBold.svg?22d4802ef21c8acfa9a72a2225cc3ddc#Roboto) format("svg");
+  src: url("/admin/fonts/Nunito-SemiBold.eot");
+  src: local("Nunito SemiBold"), local("Nunito-SemiBold"), url("/admin/fonts/Nunito-SemiBold.eot?#iefix") format("embedded-opentype"), url("/admin/fonts/Nunito-SemiBold.woff") format("woff"), url("/admin/fonts/Nunito-SemiBold.ttf") format("truetype"), url("/admin/fonts/Nunito-SemiBold.svg#Roboto") format("svg");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Nunito";
-  src: url(/fonts/Nunito-Bold.eot?5ed50bbb37426587bd2c15edc0c56597);
-  src: local("Nunito Bold"), local("Nunito-Bold"), url(/fonts/Nunito-Bold.eot?5ed50bbb37426587bd2c15edc0c56597?#iefix) format("embedded-opentype"), url(/fonts/Nunito-Bold.woff?aa7097dd10f758681f3b0463a308629b) format("woff"), url(/fonts/Nunito-Bold.ttf?6f47bcfc065790f02ed3cb8b51bef56f) format("truetype"), url(/fonts/Nunito-Bold.svg?14ee6e0972527af7765e2698e5ac6a80#Roboto) format("svg");
+  src: url("/admin/fonts/Nunito-Bold.eot");
+  src: local("Nunito Bold"), local("Nunito-Bold"), url("/admin/fonts/Nunito-Bold.eot?#iefix") format("embedded-opentype"), url("/admin/fonts/Nunito-Bold.woff") format("woff"), url("/admin/fonts/Nunito-Bold.ttf") format("truetype"), url("/admin/fonts/Nunito-Bold.svg#Roboto") format("svg");
   font-weight: 700;
   font-style: normal;
 }
@@ -12767,7 +12767,7 @@ h6 {
 }
 
 .cta-box {
-  background-image: url(/images/bg-pattern.png?850b6d8d6d9a79e081ed4418a0b08e65);
+  background-image: url(/admin/images/bg-pattern.png);
   background-size: cover;
 }
 
@@ -13056,7 +13056,7 @@ h6 {
 }
 
 body.authentication-bg {
-  background-image: url(/images/bg-pattern-light.svg?73fb1698735f2e4bc701f1f23527c501);
+  background-image: url("/admin/images/bg-pattern-light.svg");
   background-size: cover;
   background-position: center;
 }
@@ -13077,7 +13077,7 @@ body.authentication-bg {
   min-height: 100vh;
   flex-direction: row;
   align-items: stretch;
-  background: url(/images/bg-auth.jpg?e88bb22d84e3325dcede20671ae4c754) center;
+  background: url("/admin/images/bg-auth.jpg") center;
   background-size: cover;
 }
 
@@ -16346,8 +16346,8 @@ div.dt-button-info h2 {
   font-family: "summernote";
   font-style: normal;
   font-weight: normal;
-  src: url(/fonts/summernote.eot?a52b483f848b87d49a85f0c58ca28699);
-  src: url(/fonts/summernote.eot?a52b483f848b87d49a85f0c58ca28699?#iefix) format("embedded-opentype"), url(/fonts/summernote.woff?f9b5d834b2fea5a2b440074e662c2281) format("woff"), url(/fonts/summernote.ttf?ad2ecd48a495cc67b3b33764bee90f14) format("truetype");
+  src: url("/admin/fonts/summernote.eot");
+  src: url("/admin/fonts/summernote.eot?#iefix") format("embedded-opentype"), url("/admin/fonts/summernote.woff?") format("woff"), url("/admin/fonts/summernote.ttf?") format("truetype");
 }
 
 .note-editor.note-frame {

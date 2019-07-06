@@ -1,4 +1,4 @@
-// 
+//
 // menu.scss
 //
 
@@ -125,7 +125,7 @@
             padding-top: 0;
             width: 70px;
             z-index: 5;
-    
+
             .slimScrollDiv,
             .slimscroll-menu {
                 overflow: inherit !important;
@@ -135,17 +135,17 @@
                 visibility: hidden;
             }
         }
-    
+
         // Help Box
         .help-box {
             display: none;
         }
-    
+
         // Content Page
         .content-page {
             margin-left: 70px;
         }
-    
+
         //Footer
         .footer {
             left: 70px;
@@ -163,7 +163,7 @@
         .nav.collapse {
             height: inherit !important;
         }
-        
+
         .side-nav-item {
             position: relative;
             white-space: nowrap;
@@ -171,7 +171,7 @@
             .side-nav-link {
                 padding: 15px 20px;
                 min-height: 56px;
-    
+
                 &:hover,
                 &:active,
                 &:focus {
@@ -188,7 +188,7 @@
                     padding-left: 10px;
                 }
             }
-            
+
             &:hover  {
                 .side-nav-link {
                     position: relative;
@@ -230,9 +230,9 @@
 
     // Sidebar Menu Light
     .side-nav-light {
-        
+
         .side-nav-item {
-            
+
             &:hover  {
 
                 > ul {
@@ -368,7 +368,7 @@ body.boxed-layout {
 @include media-breakpoint-up(xl) {
     .scrollable-layout {
         padding-bottom: 0;
-        
+
         .wrapper {
             display: flex;
         }
@@ -424,12 +424,12 @@ body[data-layout="detached"] {
             .leftbar-user {
                 display: none;
             }
-        
+
             // Content Page
             .content-page {
                 margin-left: 0;
             }
-        
+
             //Footer
             .footer {
                 left: 0;
@@ -437,7 +437,7 @@ body[data-layout="detached"] {
         }
     }
 
-    
+
     @include media-breakpoint-down(sm) {
         &.sidebar-enable {
             .left-side-menu {
@@ -445,7 +445,7 @@ body[data-layout="detached"] {
                 left: 0;
                 overflow-y: auto;
             }
-        }    
+        }
         .content-page {
             margin-left: 0 !important;
             padding: 0 10px 60px 10px;
@@ -469,12 +469,12 @@ body[data-layout="detached"] {
             &:active {
                 color: $menu-item-dark-hover;
             }
-    
+
             &.active {
                 color: $menu-item-dark-active;
             }
         }
-    
+
         .side-nav-title {
             color: $menu-item-dark;
         }
@@ -482,7 +482,7 @@ body[data-layout="detached"] {
 }
 
 .leftbar-user {
-    background: url("../images/waves.png") no-repeat;
+    background: url("~/admin/images/waves.png") no-repeat;
     padding: 30px 20px;
     text-align: center;
 

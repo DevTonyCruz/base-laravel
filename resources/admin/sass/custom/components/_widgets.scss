@@ -1,4 +1,4 @@
-// 
+//
 // widgets.scss
 //
 
@@ -28,7 +28,7 @@
     overflow: hidden;
 
     @media (min-width: 1200px) and (max-width: 1500px){
-        i.widget-icon { 
+        i.widget-icon {
             display: none;
         }
     }
@@ -73,7 +73,7 @@
 .timeline-alt {
     padding: 20px 0;
     position: relative;
-    
+
     .timeline-item {
         position: relative;
 
@@ -129,7 +129,7 @@
                 width: 40px;
             }
         }
-        
+
         .inbox-item-author {
             color: $gray-800;
             display: block;
@@ -151,7 +151,7 @@
             top: 10px;
         }
     }
-} 
+}
 
 
 // tilebox-one (Used Profile)
@@ -180,7 +180,7 @@
 
 // CTA box
 .cta-box {
-    background-image: url(../images/bg-pattern.png);
+    background-image: url(~/admin/images/bg-pattern.png);
     background-size: cover;
 
     .cta-box-title {
