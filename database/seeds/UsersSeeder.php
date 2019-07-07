@@ -18,8 +18,8 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Cruz Antonio',
                 'rol_id' => 1,
-                'email' => 'root@base.test',
-                'password' => bcrypt('admin123'),
+                'email' => 'root@arca.test',
+                'password' => bcrypt('root123'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'status' => 1
@@ -27,8 +27,8 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Juan',
                 'rol_id' => 2,
-                'email' => 'dev@base.test',
-                'password' => bcrypt('admin123'),
+                'email' => 'dev@arca.test',
+                'password' => bcrypt('dev123'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'status' => 1
@@ -36,7 +36,7 @@ class UsersSeeder extends Seeder
             [
                 'name' => 'Juan',
                 'rol_id' => 3,
-                'email' => 'admin@base.test',
+                'email' => 'admin@arca.test',
                 'password' => bcrypt('admin123'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

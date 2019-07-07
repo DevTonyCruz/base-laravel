@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Relation_rol_permission;
 use Illuminate\Support\Carbon;
-use App\Models\Roles;
 use Illuminate\Support\Facades\File;
 
-class RolesSeeder extends Seeder
+class RelationRolPermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,16 +15,16 @@ class RolesSeeder extends Seeder
     public function run()
     {
         //se trunca la tabla
-        Roles::truncate();
+        Relation_rol_permission::truncate();
 
         //se obtienen los datos del archivo correspondiente y se parsean
-        $json = File::get('database/data/roles.json');
-        $roles = json_decode($json);
+        $json = File::get('database/data/relation_rol_permission.json');
+        $permisos = json_decode($json);
 
-        foreach ($roles as $rol) {
-            Roles::create([
-                'name' => $rol->name,
-                'description' => $rol->description,
+        foreach ($permisos as $permiso){
+            Relation_rol_permission::create([
+                'rol_id' => $permiso->rol_id,
+                'permission_id' => $permiso->permission_id,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);

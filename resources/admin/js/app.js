@@ -36,9 +36,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * Librerias de terceros instaladas en este base
  */
 
-//const Swal = window.Swal = require('sweetalert2')
-//const Pruebas  = require('./varios/pruebas')
+//const Swal = window.Swal = require('sweetaler
+require('datatables.net-bs4');
+
+//const Pruebas = require('./varios/pruebas')
 const metisMenu = require('metismenu');
-const slimscroll  = require('jquery-slimscroll');
-const select2   = require('select2');
-const moment = window.moment  = require('moment');
+const slimscroll = require('jquery-slimscroll');
+const select2 = require('select2');
+const moment = window.moment = require('moment');
+
+const custom = window.custom = require('./varios/custom');
