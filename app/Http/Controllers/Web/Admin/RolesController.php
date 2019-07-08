@@ -8,6 +8,7 @@ use App\Models\Roles;
 use Illuminate\Database\QueryException;
 use App\Models\Permissions;
 use App\Models\Relation_rol_permission;
+use App\User;
 
 class RolesController extends Controller
 {
@@ -58,7 +59,7 @@ class RolesController extends Controller
             $rol = Roles::where('name', $request->name)->first();
 
             if ($rol) {
-                return redirect()->back()->withErrors('Ya existe un rol con este nombre.');
+                return back()->withErrors(['name' => 'Ya existe un rol con este nombre.']);
             } else {
                 $rol = new Roles;
 
@@ -124,7 +125,7 @@ class RolesController extends Controller
             $rol = Roles::where('name', $request->name)->where('id', '<>', $id)->first();
 
             if ($rol) {
-                return redirect()->back()->withErrors('Ya existe un rol con este nombre.');
+                return back()->withErrors(['name' => 'Ya existe un rol con este nombre.']);
             } else {
                 $rol = Roles::where('id', $id)->first();
 
@@ -149,10 +150,33 @@ class RolesController extends Controller
     public function destroy($id)
     {
 
-        $rol = Roles::where('id', $id)->first();
-        $rol->delete();
+        try {
 
-        return redirect()->route('roles.index');
+            $users = User::where('rol_id', $id)->count();
+
+            if($users == 0){
+
+                $rol = Roles::where('id', '<>', $id)->first();
+
+                if ($rol) {
+                    $rol = Roles::where('id', $id)->first();
+
+                    if($rol->delete()){
+                        return redirect()->route('roles.index');
+                    }else{
+                        return back()->with('status', 'No se puede eliminar este usuario.');
+                    }
+
+                } else {
+                    return back()->with('status', 'No existe el usuario que desea eliminar.');
+                }
+
+            }else{
+                return back()->with('status', 'No puede elimiar un rol que tenga usuarios relacionadas.');
+            }
+        } catch (QueryException $e) {
+            return back()->with('status', $e->getMessage());
+        }
     }
 
     /**
@@ -166,25 +190,33 @@ class RolesController extends Controller
 
         try {
 
-            $rol = Roles::where('id', '<>', $id)->first();
+            $users = User::where('rol_id', $id)->count();
 
-            if ($rol) {
-                $rol = Roles::where('id', $id)->first();
+            if($users == 0){
 
-                if ($rol->status == 1) {
-                    $rol->status = 0;
+                $rol = Roles::where('id', '<>', $id)->first();
+
+                if ($rol) {
+                    $rol = Roles::where('id', $id)->first();
+
+                    if ($rol->status == 1) {
+                        $rol->status = 0;
+                    } else {
+                        $rol->status = 1;
+                    }
+
+                    $rol->save();
+
+                    return redirect()->route('roles.index');
                 } else {
-                    $rol->status = 1;
+                    return back()->with('status', 'No se puede cambiar el estatus de este usuario.');
                 }
 
-                $rol->save();
-
-                return redirect()->route('roles.index');
-            } else {
-                return redirect()->back()->withErrors('No se puede cambiar el estatus de este usuario.');
+            }else{
+                return back()->with('status', 'No puede desactivar un rol que tenga usuarios relacionadas.');
             }
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 

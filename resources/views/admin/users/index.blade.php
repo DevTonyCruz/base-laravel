@@ -29,6 +29,8 @@
                     <h4 class="header-title">
                         <i class="mdi mdi-view-list mr-1"></i> Listado
                     </h4>
+
+                    @permission('users.create')
                     <p class="text-muted font-14 mb-4">
                         <br>
                         <a href="{{ url('admin/users/create') }}">
@@ -38,6 +40,7 @@
                             </button>
                         </a>
                     </p>
+                    @endpermission
 
                     <div class="table-responsive">
                         <table class="table mb-0" id="datatable">
@@ -86,8 +89,9 @@
                                     <td>
                                         <a href="{{ url('admin/users/' . $user->id) }}" class="action-icon" title="Ver">
                                             <i class="mdi mdi-eye-outline"></i></a>
-                                            <a href="{{ url('admin/users/' . $user->id . '/edit') }}" class="action-icon" title="Ver">
-                                                <i class="mdi mdi-pencil"></i></a>
+                                        <a href="{{ url('admin/users/' . $user->id . '/edit') }}" class="action-icon"
+                                            title="Ver">
+                                            <i class="mdi mdi-pencil"></i></a>
                                         <a href="javascript:void(0)"
                                             onclick="document.getElementById('form_delete_{{ $user->id }}').submit();"
                                             class="action-icon" title="Ver"> <i
@@ -115,7 +119,6 @@
 
 @section('js')
 <script type="text/javascript" defer>
-
     window.onload=function() {
         $("#datatable").DataTable({
             language: {
@@ -124,4 +127,3 @@
 	}
 </script>
 @endsection
-
