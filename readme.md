@@ -65,7 +65,7 @@ php artisan db:seed --class=PermissionsSeeder
 
 ## Contribución
 
-Desarrollador: Antonio Tenorio
-Desarrollador: Rufino Santiago
-Desarrollador: David Chavez
-Tester: Fernando Chavez
+- Desarrollador: Antonio Tenorio
+- Desarrollador: Rufino Santiago
+- Desarrollador: David Chavez
+- Tester: Fernando Chavez
