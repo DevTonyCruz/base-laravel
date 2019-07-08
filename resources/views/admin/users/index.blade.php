@@ -40,13 +40,12 @@
                     </p>
 
                     <div class="table-responsive">
-                        <table class="table mb-0">
+                        <table class="table mb-0" id="datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Teléfono</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Activo</th>
                                     <th scope="col">Fecha de creación</th>
@@ -61,7 +60,6 @@
                                     </td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->rol->name }}</td>
                                     <td>
                                         @php
                                         $checked = ""
@@ -88,6 +86,8 @@
                                     <td>
                                         <a href="{{ url('admin/users/' . $user->id) }}" class="action-icon" title="Ver">
                                             <i class="mdi mdi-eye-outline"></i></a>
+                                            <a href="{{ url('admin/users/' . $user->id . '/edit') }}" class="action-icon" title="Ver">
+                                                <i class="mdi mdi-pencil"></i></a>
                                         <a href="javascript:void(0)"
                                             onclick="document.getElementById('form_delete_{{ $user->id }}').submit();"
                                             class="action-icon" title="Ver"> <i
@@ -112,3 +112,16 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script type="text/javascript" defer>
+
+    window.onload=function() {
+        $("#datatable").DataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+            }});
+	}
+</script>
+@endsection
+

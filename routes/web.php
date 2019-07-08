@@ -73,4 +73,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'permission']], func
         Route::delete('/{id}',          'Web\Admin\UsersController@destroy')->name('users.destroy');
         Route::put('/status/{id}',      'Web\Admin\UsersController@status')->name('users.status');
     });
+
+    Route::group(['prefix' => 'configuration'], function () {
+        Route::get('/',                 'Web\Admin\ConfigurationsController@index')->name('configuration.index');
+        Route::get('/{id}',             'Web\Admin\ConfigurationsController@show')->name('configuration.show');
+        Route::get('/{id}/edit',        'Web\Admin\ConfigurationsController@edit')->name('configuration.edit');
+        Route::put('/{id}',             'Web\Admin\ConfigurationsController@update')->name('configuration.update');
+        Route::put('/status/{id}',      'Web\Admin\ConfigurationsController@status')->name('configuration.status');
+    });
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/',                 'Web\Admin\CategoriesController@index')->name('categories.index');
+        Route::get('/create',           'Web\Admin\CategoriesController@create')->name('categories.create');
+        Route::post('/',                'Web\Admin\CategoriesController@store')->name('categories.store');
+        Route::get('/{id}',             'Web\Admin\CategoriesController@show')->name('categories.show');
+        Route::get('/{id}/edit',        'Web\Admin\CategoriesController@edit')->name('categories.edit');
+        Route::put('/{id}',             'Web\Admin\CategoriesController@update')->name('categories.update');
+        Route::delete('/{id}',          'Web\Admin\CategoriesController@destroy')->name('categories.destroy');
+        Route::put('/status/{id}',      'Web\Admin\CategoriesController@status')->name('categories.status');
+    });
 });

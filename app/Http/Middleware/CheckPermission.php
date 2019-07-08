@@ -21,7 +21,6 @@ class CheckPermission
 
         $relacion = Relation_rol_permission::where('rol_id', $user->rol_id)->get();
 
-
         $filter = $relacion->filter(function($value) use($ruta){
             if ($value->permiso->slug == $ruta) {
                 return true;

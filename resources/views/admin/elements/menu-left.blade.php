@@ -44,12 +44,28 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index.html">
+                        <a href="{{ route('configuration.index') }}">
                             Configuraciones
                             <span class="badge badge-success float-right">3</span>
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <li class="side-nav-title side-nav-item">SISTEMA</li>
+
+            <li class="side-nav-item">
+                <a href="{{ route('categories.index') }}" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Categorías </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="javascript: void(0);" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Productos </span>
+                </a>
             </li>
 
         </ul>

@@ -11,13 +11,13 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('roles.index') }}">Roles</a>
+                            <a href="{{ route('configuration.index') }}">Configuraciones</a>
                         </li>
                         <li class="breadcrumb-item active">Mostrar</li>
                     </ol>
                 </div>
                 <h4 class="page-title">
-                    <a href="{{ route('roles.index') }}">Roles</a>
+                    <a href="{{ route('configuration.index') }}">Configuraciones</a>
                 </h4>
             </div>
         </div>
@@ -30,11 +30,12 @@
 
                 <h4 class="mb-3 header-title">Mostrar registro</h4>
                 <div class="form-group row mb-3">
-                    <label class="col-3 col-form-label">Nombre</label>
-                    <label class="col-9 col-form-label"><b>{{ $rol->name }}</b></label>
-
-                    <label class="col-3 col-form-label">Descripción</label>
-                    <label class="col-3 col-form-label"><b>{{ $rol->description }}</b></label>
+                    <label class="col-3 col-form-label">Llave</label>
+                    <label class="col-9 col-form-label"><b>{{ $configuration->key }}</b></label>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="col-3 col-form-label">Valor</label>
+                    <label class="col-9 col-form-label"><b>{{ $configuration->value }}</b></label>
                 </div>
 
             </div> <!-- end card-body -->

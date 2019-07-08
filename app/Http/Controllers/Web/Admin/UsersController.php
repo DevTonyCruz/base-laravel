@@ -8,6 +8,8 @@ use Illuminate\Database\QueryException;
 
 use App\User;
 use App\Models\Roles;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -18,7 +20,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('rol_id', '<>', 2)->latest()->paginate(10);
+        $user = Auth::user();
+        $users = User::where('id', '<>', $user->id)->get();
         return view('admin.users.index', ["users" => $users]);
     }
 
@@ -29,7 +32,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Roles::where('status', 1)->get();
+        $roles = Roles::active()->get();
         return view('admin.users.create', ['roles' => $roles]);
     }
 
@@ -43,8 +46,6 @@ class UsersController extends Controller
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'first_last_name' => 'required|string|max:255',
-            'second_last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'rol_id' => 'required|numeric',
             'password' => 'required|string|min:6|confirmed',
@@ -54,12 +55,6 @@ class UsersController extends Controller
             'name.required' => 'El campo nombre es requerido',
             'name.max:255' => 'El campo nombre solo permite 255 caracteres',
             'name.string' => 'El campo nombre debe ser texto',
-            'first_last_name.required' => 'El campo apellido paterno es requerido',
-            'first_last_name.required' => 'El campo apellido paterno solo permite 255 caracteres',
-            'first_last_name.required' => 'El campo apellido paterno debe ser texto',
-            'second_last_name.required' => 'El campo apellido materno es requerido',
-            'second_last_name.max:255' => 'El campo apellido materno solo permite 255 caracteres',
-            'second_last_name.string' => 'El campo apellido materno debe ser texto',
             'email.required' => 'El campo email es requerido',
             'email.email' => 'El campo email no es válido',
             'email.max:255' => 'El campo email solo permite 255 caracteres',
@@ -79,9 +74,6 @@ class UsersController extends Controller
 
             $user = new User();
             $user->name = $request->name;
-            $user->first_last_name = $request->first_last_name;
-            $user->second_last_name = $request->second_last_name;
-            $user->phone = $request->phone;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->rol_id = $request->rol_id;
@@ -118,8 +110,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::with('roles')->where('id', $id)->first();
-        return view('admin.users.edit', ["user" => $user]);
+        $roles = Roles::active()->get();
+        $user = User::with('rol')->where('id', $id)->first();
+        return view('admin.users.edit', ["user" => $user, "roles" => $roles]);
     }
 
     /**
@@ -133,8 +126,6 @@ class UsersController extends Controller
     {
         $rules = [
             'name' => 'required|string|max:255',
-            'first_last_name' => 'required|string|max:255',
-            'second_last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'rol_id' => 'required|numeric'
         ];
@@ -143,12 +134,6 @@ class UsersController extends Controller
             'name.required' => 'El campo nombre es requerido',
             'name.max:255' => 'El campo nombre solo permite 255 caracteres',
             'name.string' => 'El campo nombre debe ser texto',
-            'first_last_name.required' => 'El campo apellido paterno es requerido',
-            'first_last_name.required' => 'El campo apellido paterno solo permite 255 caracteres',
-            'first_last_name.required' => 'El campo apellido paterno debe ser texto',
-            'second_last_name.required' => 'El campo apellido materno es requerido',
-            'second_last_name.max:255' => 'El campo apellido materno solo permite 255 caracteres',
-            'second_last_name.string' => 'El campo apellido materno debe ser texto',
             'email.required' => 'El campo email es requerido',
             'email.email' => 'El campo email no es válido',
             'email.max:255' => 'El campo email solo permite 255 caracteres',
@@ -164,17 +149,14 @@ class UsersController extends Controller
 
             $user = User::where('id', $id)->first();
             $user->name = $request->name;
-            $user->first_last_name = $request->first_last_name;
-            $user->second_last_name = $request->second_last_name;
-            $user->phone = $request->phone;
             $user->email = $request->email;
             $user->rol_id = $request->rol_id;
 
             if ($user->save()) {
                 //Mail::to($request->email)->send(new UpdateUserMail($user));
-                Auth::logout();
+                //Auth::logout();
 
-                return redirect()->route('login');
+                return redirect()->route('users.index');
             }
 
             return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
