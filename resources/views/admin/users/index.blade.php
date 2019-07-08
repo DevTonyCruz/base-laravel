@@ -3,23 +3,23 @@
 @section('content')
 
 <div class="container-fluid">
-    <!-- start page title -->
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('roles.index') }}">Roles</a>
+                            <a href="{{ route('users.index') }}">Usuarios</a>
                         </li>
-                        <li class="breadcrumb-item active">Lista</li>
+                        <li class="breadcrumb-item active">Principal</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Roles</h4>
+                <h4 class="page-title">
+                    <a href="{{ route('users.index') }}">Usuarios</a>
+                </h4>
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-12">
@@ -31,7 +31,7 @@
                     </h4>
                     <p class="text-muted font-14 mb-4">
                         <br>
-                        <a href="{{ url('admin/roles/create') }}">
+                        <a href="{{ url('admin/users/create') }}">
                             <button type="button" class="btn btn-light">
                                 <i class="mdi mdi-plus mr-1"></i>
                                 <span>Agregar</span>
@@ -40,69 +40,64 @@
                     </p>
 
                     <div class="table-responsive">
-                        <table class="table mb-0" id="datatable">
+                        <table class="table mb-0">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Rol</th>
                                     <th scope="col">Activo</th>
                                     <th scope="col">Fecha de creación</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($roles as $rol)
+                                @foreach ($users as $user)
                                 <tr>
-                                    <th scope="row">{{ $rol->id }}</th>
-                                    <td>{{ $rol->name }}</td>
-                                    <td>{{ $rol->description }}</td>
-                                    <td>
-                                        <div>
-                                            @php
-                                            $checked = ""
-                                            @endphp
-                                            @if($rol->status == 1)
-                                            @php
-                                            $checked = "checked"
-                                            @endphp
-                                            @endif
-
-                                            <input type="checkbox" id="switch_{{ $rol->id }}" {{ $checked }}
-                                                data-switch="success"
-                                                onchange="document.getElementById('form_update_{{ $rol->id }}').submit();">
-                                            <label for="switch_{{ $rol->id }}" data-on-label="Si" data-off-label="No"
-                                                class="mb-0 d-block"></label>
-
-                                            <form method="POST" id="form_update_{{ $rol->id }}" class="inline"
-                                                action="{{ url('admin/roles/status/' . $rol->id) }}">
-                                                @method('PUT')
-                                                @csrf
-                                            </form>
-                                        </div>
+                                    <th scope="row">{{ $user->id }}</th>
+                                    <td>{{ $user->name . ' ' . $user->first_last_name . ' ' . $user->second_last_name }}
                                     </td>
-                                    <td>{{ $rol->created_at }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->rol->name }}</td>
                                     <td>
-                                        <a href="{{ url('admin/roles/' . $rol->id) }}" class="action-icon" title="Ver">
-                                            <i class=" mdi mdi-eye-outline"></i></a>
-                                        <a href="{{ url('admin/roles/' . $rol->id .'/edit') }}" class="action-icon"
-                                            title="Ver">
-                                            <i class=" mdi mdi-pencil"></i></a>
-                                        <a href="{{ url('admin/roles/permission/' . $rol->id) }}" class="action-icon"
-                                            title="Permisos"> <i class=" mdi mdi-lock-open-outline"></i></a>
+                                        @php
+                                        $checked = ""
+                                        @endphp
+                                        @if($user->status == 1)
+                                        @php
+                                        $checked = "checked"
+                                        @endphp
+                                        @endif
 
-                                        @if($rol->id != 1)
+                                        <input type="checkbox" id="switch_{{ $user->id }}" {{ $checked }}
+                                            data-switch="success"
+                                            onchange="document.getElementById('form_update_{{ $user->id }}').submit();">
+                                        <label for="switch_{{ $user->id }}" data-on-label="Si" data-off-label="No"
+                                            class="mb-0 d-block"></label>
+
+                                        <form method="POST" id="form_update_{{ $user->id }}" class="inline"
+                                            action="{{ url('admin/users/status/' . $user->id) }}">
+                                            @method('PUT')
+                                            @csrf
+                                        </form>
+                                    </td>
+                                    <td>{{ $user->created_at }}</td>
+                                    <td>
+                                        <a href="{{ url('admin/users/' . $user->id) }}" class="action-icon" title="Ver">
+                                            <i class="mdi mdi-eye-outline"></i></a>
                                         <a href="javascript:void(0)"
-                                            onclick="document.getElementById('form_delete_{{ $rol->id }}').submit();"
+                                            onclick="document.getElementById('form_delete_{{ $user->id }}').submit();"
                                             class="action-icon" title="Ver"> <i
-                                                class=" mdi mdi-trash-can-outline"></i></a>
+                                                class="mdi mdi-trash-can-outline"></i></a>
 
-                                        <form method="POST" id="form_delete_{{ $rol->id }}" class="inline"
-                                            action="{{ url('admin/roles/' . $rol->id) }}">
+                                        <form method="POST" id="form_delete_{{ $user->id }}" class="inline"
+                                            action="{{ url('admin/users/' . $user->id) }}">
                                             @method('DELETE')
                                             @csrf
                                         </form>
-                                        @endif
                                     </td>
                                 </tr>
 
@@ -116,15 +111,4 @@
         </div><!-- end col-->
     </div>
 </div>
-@endsection
-
-@section('js')
-<script type="text/javascript">
-    window.onload=function() {
-        $("#datatable").DataTable({
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-            }});
-	}
-</script>
 @endsection

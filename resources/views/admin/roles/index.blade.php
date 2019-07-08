@@ -15,7 +15,9 @@
                         <li class="breadcrumb-item active">Lista</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Roles</h4>
+                <h4 class="page-title">
+                    <a href="{{ route('roles.index') }}">Roles</a>
+                </h4>
             </div>
         </div>
     </div>
@@ -119,7 +121,8 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
+<script type="text/javascript" defer>
+
     window.onload=function() {
         $("#datatable").DataTable({
             language: {

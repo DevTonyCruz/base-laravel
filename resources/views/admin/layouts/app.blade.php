@@ -57,11 +57,12 @@
     <script src="{{ asset('admin/js/app.js') }}" defer></script>
     <script src="{{ asset('admin/js/main.js') }}" defer></script>
 
+
     @if (session('status'))
-    <script type="text/javascript">
-        window.onload=function() {
+    <script type="text/javascript" defer>
+        window.addEventListener("load",function(event) {
             custom.modal_permissions();
-		}
+		});
     </script>
     @endif
 

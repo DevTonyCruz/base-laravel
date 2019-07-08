@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index.html">
+                        <a href="{{ route('users.index') }}">
                             Usuarios
                             <span class="badge badge-success float-right">3</span>
                         </a>

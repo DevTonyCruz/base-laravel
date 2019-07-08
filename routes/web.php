@@ -61,4 +61,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'permission']], func
         Route::get('/permission/{id}',  'Web\Admin\RolesController@permission')->name('roles.permission');
         Route::put('/permission/{id}',  'Web\Admin\RolesController@save_permission')->name('roles.savePermission');
     });
+
+    //Usuarios Admin
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/',                 'Web\Admin\UsersController@index')->name('users.index');
+        Route::get('/create',           'Web\Admin\UsersController@create')->name('users.create');
+        Route::post('/',                'Web\Admin\UsersController@store')->name('users.store');
+        Route::get('/{id}',             'Web\Admin\UsersController@show')->name('users.show');
+        Route::get('/{id}/edit',        'Web\Admin\UsersController@edit')->name('users.edit');
+        Route::put('/{id}',             'Web\Admin\UsersController@update')->name('users.update');
+        Route::delete('/{id}',          'Web\Admin\UsersController@destroy')->name('users.destroy');
+        Route::put('/status/{id}',      'Web\Admin\UsersController@status')->name('users.status');
+    });
 });

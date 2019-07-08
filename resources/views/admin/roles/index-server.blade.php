@@ -15,7 +15,9 @@
                         <li class="breadcrumb-item active">Lista</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Roles</h4>
+                <h4 class="page-title">
+                    <a href="{{ route('roles.index') }}">Roles</a>
+                </h4>
             </div>
         </div>
     </div>

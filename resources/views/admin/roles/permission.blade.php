@@ -13,7 +13,9 @@
                 </ol>
             </div>
             <h4 class="page-title">
-                <a href="{{ url('admin/roles') }}">Roles</a>
+                <h4 class="page-title">
+                    <a href="{{ route('roles.index') }}">Roles</a>
+                </h4>
             </h4>
         </div>
     </div>

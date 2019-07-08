@@ -10,7 +10,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('roles.index') }}">Roles</a>
+                            <a href="{{ route('users.index') }}">Roles</a>
                         </li>
                         <li class="breadcrumb-item active">Crear</li>
                     </ol>
@@ -26,7 +26,7 @@
 
                 <h4 class="mb-3 header-title">Crear registro</h4>
 
-                <form class="form-horizontal" action="{{ url('admin/roles/') }}" method="POST">
+                <form class="form-horizontal" action="{{ url('admin/users/') }}" method="POST">
                     @csrf
                     <div class="form-group row mb-3">
                         <label for="name" class="col-3 col-form-label">Nombre</label>
