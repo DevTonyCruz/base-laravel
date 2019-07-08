@@ -54,6 +54,7 @@ Estructura de permisos
     }]
 }]
 ```
+
 Como se puede apreciar en la estructura el nombre de la ruta se coloca en 
 el campos slug.
 

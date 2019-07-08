@@ -68,6 +68,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('topics.index') }}" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Temas </span>
+                </a>
+            </li>
+
         </ul>
 
         <!-- Help Box -->

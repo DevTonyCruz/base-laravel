@@ -18,7 +18,7 @@ class CategoriesSeeder extends Seeder
         Categories::truncate();
 
         //se obtienen los datos del archivo correspondiente y se parsean
-        $json = File::get('database/data/Categories.json');
+        $json = File::get('database/data/categories.json');
         $categories = json_decode($json);
 
         foreach ($categories as $category) {
