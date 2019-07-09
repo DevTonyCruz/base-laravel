@@ -82,6 +82,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('pages.index') }}" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Páginas </span>
+                </a>
+            </li>
+
         </ul>
 
         <!-- Help Box -->

@@ -89,6 +89,8 @@
                                     <td>
                                         <a href="{{ url('admin/products/' . $product->id) }}" class="action-icon"
                                             title="Ver"> <i class=" mdi mdi-eye-outline"></i></a>
+                                        <a href="{{ url('admin/products/' . $product->id . '/edit') }}" class="action-icon"
+                                            title="Editar"> <i class=" mdi mdi-pencil"></i></a>
                                         <a href="javascript:void(0)"
                                             onclick="document.getElementById('form_delete_{{ $product->id }}').submit();"
                                             class="action-icon" title="Eliminar"> <i

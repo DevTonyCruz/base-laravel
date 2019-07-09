@@ -1,12 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use App\User;
+use App\Models\Pages;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
-class UsersSeeder extends Seeder
+class PagesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,24 +15,22 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //se trunca la tabla
-        User::truncate();
+        Pages::truncate();
 
         //se obtienen los datos del archivo correspondiente y se parsean
-        $json = File::get('database/data/users.json');
+        $json = File::get('database/data/pages.json');
         $users = json_decode($json);
 
         foreach ($users as $user) {
-            User::create([
+            Pages::create([
                 'name' => $user->name,
-                'rol_id' => $user->rol_id,
-                'email' => $user->email,
-                'password' => bcrypt($user->password),
+                'slug' => $user->slug,
+                'length_text' => $user->length_text,
+                'content' => $user->content,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
         }
-
-        //factory(User::class, 100)->create();
     }
 }

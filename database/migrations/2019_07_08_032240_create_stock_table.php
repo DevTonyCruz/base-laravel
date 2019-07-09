@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateStockTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('stock', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('slug');
-            $table->longText('content');
-            $table->tinyInteger('status')->default(1);
+            $table->integer('product_id');
+            $table->integer('min_quantity');
+            $table->integer('max_quantity');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('stock');
     }
 }

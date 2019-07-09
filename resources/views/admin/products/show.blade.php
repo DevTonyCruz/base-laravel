@@ -73,15 +73,6 @@
 
                                 <div class="mt-3">
                                     <div class="d-flex">
-                                        <a href="{{ url('admin/products/' . $producto->id . '/edit') }}"
-                                            class="btn btn-success" title="Actualizar">
-                                            <i class="mdi mdi-pencil"></i> Actualizar
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="mt-3">
-                                    <div class="d-flex">
                                         <a href="{{ url('admin/products/images/' . $producto->id) }}"
                                             class="btn btn-success" title="Actualizar">
                                             <i class="mdi mdi-image"></i> Agregar Imagen
