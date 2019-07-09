@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Topics;
 use Illuminate\Database\QueryException;
+use App\Models\Faqs;
 
 class TopicsController extends Controller
 {
@@ -128,17 +129,16 @@ class TopicsController extends Controller
             if ($topic) {
 
                 return back()->withErrors(['title' => 'Ya existe un tema con este nombre.']);
-
-            } else { 
+            } else {
 
                 $topics = Topics::where('id', $id)->first();
-    
+
                 $topics->title = $request->title;
                 $topics->slug = str_replace(' ', '-', strtolower($request->title));
                 $topics->description = $request->description;
-    
+
                 if ($topics->save()) {
-    
+
                     return redirect()->route('topics.index');
                 }
             }
@@ -157,20 +157,24 @@ class TopicsController extends Controller
      */
     public function destroy($id)
     {
-        //$faqs = Faq::count();
+        try {
+            $faqs = Faqs::where('topic_id', $id)->count();
 
-        //if($faqs == 0){
+            if ($faqs == 0) {
+                $topics = Topics::where('id', $id)->first();
 
-        $topics = Topics::where('id', $id)->first();
+                if ($topics->delete()) {
 
-        if ($topics->delete()) {
+                    return redirect()->route('topics.index');
+                }
 
-            return redirect()->route('topics.index');
+                return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+            } else {
+                return back()->with('status', 'Este tema contiene preguntas y debido a eso no es posible eliminarlo.');
+            }
+        } catch (QueryException $e) {
+            return back()->with('status', $e->getMessage());
         }
-
-        return back()->withErrors(['Por el momento no se puede realizar la acción solicitada.']);
-        //}
-        return back()->withErrors(['Este tema contiene preguntas y debido a eso no es posible eliminarlo.']);
     }
 
     /**
@@ -182,23 +186,30 @@ class TopicsController extends Controller
     public function status($id)
     {
         try {
+            
+            $faqs = Faqs::where('topic_id', $id)->count();
 
-            $topics = Topics::where('id', $id)->first();
+            if ($faqs == 0) {
 
-            if ($topics->status == 1) {
-                $topics->status = 0;
-            } else {
-                $topics->status = 1;
+                $topics = Topics::where('id', $id)->first();
+    
+                if ($topics->status == 1) {
+                    $topics->status = 0;
+                } else {
+                    $topics->status = 1;
+                }
+    
+                if ($topics->save()) {
+    
+                    return redirect()->route('topics.index');
+                }
+
+                return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+            }else{
+                return back()->with('status', 'Este tema contiene preguntas y debido a eso no es posible desactivarlo.');
             }
-
-            if ($topics->save()) {
-
-                return redirect()->route('topics.index');
-            }
-
-            return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 }

@@ -38,6 +38,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 //const Swal = window.Swal = require('sweetaler
 require('datatables.net-bs4');
+require('summernote');
 
 //const Pruebas = require('./varios/pruebas')
 const metisMenu = require('metismenu');

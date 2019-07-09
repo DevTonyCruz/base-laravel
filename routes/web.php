@@ -15,8 +15,6 @@
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
 // Admin Access Routes
 Route::group(['prefix' => 'admin'], function () {
 

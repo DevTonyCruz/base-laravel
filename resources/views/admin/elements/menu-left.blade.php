@@ -75,6 +75,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('faqs.index') }}" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Preguntas frecuentes </span>
+                </a>
+            </li>
+
         </ul>
 
         <!-- Help Box -->

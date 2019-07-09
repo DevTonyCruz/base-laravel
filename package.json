@@ -63,7 +63,7 @@
         "moment": "^2.24.0",
         "popper.js": "^1.14.7",
         "select2": "^4.0.6-rc.1",
-        "summernote": "^0.8.10",
+        "summernote": "^0.8.12",
         "twitter-bootstrap-wizard": "^1.2.0",
         "typeahead.js": "^0.11.1"
     }

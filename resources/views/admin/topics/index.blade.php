@@ -40,7 +40,7 @@
                     </p>
 
                     <div class="table-responsive">
-                        <table class="table mb-0">
+                        <table class="table mb-0" id="datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -109,4 +109,15 @@
         </div><!-- end col-->
     </div>
 </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" defer>
+    window.onload=function() {
+        $("#datatable").DataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+            }});
+	}
+</script>
 @endsection
