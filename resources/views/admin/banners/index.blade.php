@@ -43,7 +43,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Foto</th>
+                                <th scope="col">Imagen o video</th>
                                 <th scope="col">Titulo</th>
                                 <th scope="col">Subtitulo</th>
                                 <th scope="col">Activo</th>
@@ -57,7 +57,11 @@
                             <tr>
                                 <th scope="row">{{ $banner->id }}</th>
                                 <td>
-                                    <img src="{{ asset($banner->photo_url) }}" alt="banner-img" title="banner-img" class="rounded mr-3" height="48">
+                                    @if($banner->type == 'image')
+                                        <img src="{{ asset($banner->photo_url) }}" alt="banner-img" title="banner-img" class="rounded mr-3" height="48">
+                                    @elseif ($banner->type == 'video')
+                                        <a href="{{ asset($banner->video_link) }}" class="btn btn-primary btn-lg active">Ver video</a>
+                                    @endif
                                 </td>
                                 <td>{{ $banner->title }}</td>
                                 <td>{{ $banner->subtitle }}</td>
@@ -81,7 +85,7 @@
                                 </td>
                                 <td>{{ $banner->created_at }}</td>
                                 <td>
-                                    <a href="{{ url('admin/banners/' . $banner->id) }}" class="action-icon" title="Ver"> <i class=" mdi mdi-eye-outline"></i></a>
+                                    <a href="{{ url('admin/banners/' . $banner->id . '/edit') }}" class="action-icon" title="Editar"> <i class=" mdi mdi-pencil"></i></a>
                                     <a href="javascript:void(0)" onclick="document.getElementById('form_delete_{{ $banner->id }}').submit();" class="action-icon" title="Eliminar"> <i class=" mdi mdi-trash-can-outline"></i></a>
 
                                     <form method="POST" id="form_delete_{{ $banner->id }}" class="inline" action="{{ url('admin/banners/' . $banner->id) }}">

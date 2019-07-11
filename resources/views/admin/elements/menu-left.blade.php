@@ -89,6 +89,13 @@
                 </a>
             </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('banners.index') }}" class="side-nav-link">
+                    <i class="dripicons-view-apps"></i>
+                    <span> Banner </span>
+                </a>
+            </li>
+
         </ul>
 
         <!-- Help Box -->
