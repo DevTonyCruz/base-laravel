@@ -458,6 +458,14 @@
       $this._resetSidebarScroll();
     });
   }, $.App = new App(), $.App.Constructor = App;
+}(window.jQuery), function ($) {
+  'use strict';
+
+  $('.wyswyg-content').summernote({
+    height: 150,
+    toolbar: [// [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline']], ['font', ['strikethrough']], ['fontsize', ['fontsize']], ['color', ['color']]]
+  });
 }(window.jQuery), //initializing main application module
 function ($) {
   "use strict";

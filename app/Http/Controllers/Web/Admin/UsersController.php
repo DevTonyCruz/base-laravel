@@ -84,9 +84,9 @@ class UsersController extends Controller
                 return redirect()->route('users.index');
             }
 
-            return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
+            return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -159,9 +159,9 @@ class UsersController extends Controller
                 return redirect()->route('users.index');
             }
 
-            return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
+            return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -173,7 +173,25 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $user = User::where('id', $id)->first();
+
+            if ($user) {
+
+                if ($user->delete()) {
+                    //Mail::to($user->email)->send(new StatusUserMail($user));
+
+                    return redirect()->route('users.index');
+                }
+
+                return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+            } else {
+            return back()->with('status', 'No se puede cambiar el estatus de este usuario.');
+            }
+        } catch (QueryException $e) {
+            return back()->with('status', $e->getMessage());
+        }
     }
 
     /**
@@ -186,34 +204,28 @@ class UsersController extends Controller
     {
         try {
 
-            $user = User::where('id', '<>', $id)->first();
+            $user = User::where('id', $id)->first();
 
             if ($user) {
 
-                try {
-                    $user = User::where('id', $id)->first();
-
-                    if ($user->status == 1) {
-                        $user->status = 0;
-                    } else {
-                        $user->status = 1;
-                    }
-
-                    if ($user->save()) {
-                        //Mail::to($user->email)->send(new StatusUserMail($user));
-
-                        return redirect()->route('users.index');
-                    }
-
-                    return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
-                } catch (QueryException $e) {
-                    return back()->with('error', $e->getMessage());
+                if ($user->status == 1) {
+                    $user->status = 0;
+                } else {
+                    $user->status = 1;
                 }
+
+                if ($user->save()) {
+                    //Mail::to($user->email)->send(new StatusUserMail($user));
+
+                    return redirect()->route('users.index');
+                }
+
+                return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
             } else {
-                return redirect()->back()->withErrors('No se puede cambiar el estatus de este usuario.');
+            return back()->with('status', 'No se puede cambiar el estatus de este usuario.');
             }
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 }

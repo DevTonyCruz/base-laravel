@@ -34,19 +34,19 @@
                     <li>
                         <a href="{{ route('roles.index') }}">
                             Roles
-                            <span class="badge badge-success float-right">3</span>
+                            <span class="badge badge-success float-right">{{ $total_roles }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('users.index') }}">
                             Usuarios
-                            <span class="badge badge-success float-right">3</span>
+                            <span class="badge badge-success float-right">{{ $total_users }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('configuration.index') }}">
                             Configuraciones
-                            <span class="badge badge-success float-right">3</span>
+                            <span class="badge badge-success float-right">{{ $total_configutarions }}</span>
                         </a>
                     </li>
                 </ul>

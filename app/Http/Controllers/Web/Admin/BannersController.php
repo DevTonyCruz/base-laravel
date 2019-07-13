@@ -41,17 +41,18 @@ class BannersController extends Controller
     {
         $rules = [];
         $messages = [];
-        if($request->type == 'image'){            
+        if ($request->type == 'image') {
 
             $wyswyg = strip_tags(str_replace(' ', '', $request->content));
 
-            if($wyswyg == ''){
+            if ($wyswyg == '') {
                 return back()
                     ->withInput()
                     ->withErrors(['content' => 'El campo contenido no contiene información válida']);;
             }
-            
+
             $rules = [
+                'type' => 'required|nullable',
                 'title' => 'required|max:255',
                 'subtitle' => 'required|max:255',
                 'file' => 'required|mimes:png,jpeg,jpg',
@@ -59,7 +60,7 @@ class BannersController extends Controller
                 'url_button' => 'required|url',
                 'position' => 'required'
             ];
-    
+
             $messages = [
                 'title.required' => 'El campo titulo es requerido',
                 'title.max' => 'El campo titulo solo permite 255 caracteres',
@@ -74,13 +75,13 @@ class BannersController extends Controller
             ];
         }
 
-        if($request->type == 'video'){
+        if ($request->type == 'video') {
             $rules = [
                 'title' => 'required|max:255',
                 'subtitle' => 'required|max:255',
                 'video_link' => 'required|url',
             ];
-    
+
             $messages = [
                 'title.required' => 'El campo titulo es requerido',
                 'title.max' => 'El campo titulo solo permite 255 caracteres',
@@ -91,42 +92,48 @@ class BannersController extends Controller
             ];
         }
 
+        if (is_null($request->type)) {
+            return back()
+                ->withInput()
+                ->withErrors(['type' => 'El campo tipo es necesario']);;
+        }
+
         $this->validate($request, $rules, $messages);
 
         try {
 
-            $Banner = new Banners();
-            $Banner->title = $request->title;
-            $Banner->subtitle = $request->subtitle;
-            $Banner->description = $request->description;
-            $Banner->type = $request->type;
-            $Banner->status = 1;
+            $banner = new Banners();
+            $banner->title = $request->title;
+            $banner->slug = $request->slug;
+            $banner->subtitle = $request->subtitle;
+            $banner->description = $request->description;
+            $banner->type = $request->type;
+            $banner->status = 1;
 
-            if($request->type == 'image'){
-                $Banner->button_text = $request->button_text;
-                $Banner->button_link = $request->url_button;
-                $Banner->content = $request->content;
-                $Banner->position = $request->position;
+            if ($request->type == 'image') {
+                $banner->button_text = $request->button_text;
+                $banner->button_link = $request->url_button;
+                $banner->content = $request->content;
+                $banner->position = $request->position;
             }
 
-            if($request->type == 'video'){
-                $Banner->video_link = $request->video_link;
+            if ($request->type == 'video') {
+                $banner->video_link = $request->video_link;
             }
 
-            if($Banner->save()){
+            if ($banner->save()) {
 
-                if($request->file('file')){
+                if ($request->file('file')) {
                     $path = Storage::disk('public')->put('images/storage/banner', $request->file('file'));
-                    $Banner->fill(['photo_url' => $path])->save();
+                    $banner->fill(['photo_url' => $path])->save();
                 }
 
                 return redirect()->route('banners.index');
             }
 
-            return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
-
+            return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -165,31 +172,30 @@ class BannersController extends Controller
     {
         $rules = [];
         $messages = [];
-        if($request->type == 'image'){            
+        if ($request->type == 'image') {
 
             $wyswyg = strip_tags(str_replace(' ', '', $request->content));
 
-            if($wyswyg == ''){
+            if ($wyswyg == '') {
                 return back()
                     ->withInput()
                     ->withErrors(['content' => 'El campo contenido no contiene información válida']);;
             }
-            
+
             $rules = [
                 'title' => 'required|max:255',
                 'subtitle' => 'required|max:255',
-                'file' => 'required|mimes:png,jpeg,jpg',
+                'file' => 'mimes:png,jpeg,jpg',
                 'button_text' => 'required',
                 'url_button' => 'required|url',
                 'position' => 'required'
             ];
-    
+
             $messages = [
                 'title.required' => 'El campo titulo es requerido',
                 'title.max' => 'El campo titulo solo permite 255 caracteres',
                 'subtitle.required' => 'El campo subtitulo es requerido',
                 'subtitle.max' => 'El campo subtitulo solo permite 255 caracteres',
-                'file.required' => 'El campo imagen es requerido',
                 'file.mimes' => 'El campo imagen solo acepta los siguientes formatos; png, jpeg y jpg',
                 'button_text.required' => 'El campo texto del botón es requerido',
                 'url_button.required' => 'El campo enlace del botón es requerido',
@@ -198,13 +204,13 @@ class BannersController extends Controller
             ];
         }
 
-        if($request->type == 'video'){
+        if ($request->type == 'video') {
             $rules = [
                 'title' => 'required|max:255',
                 'subtitle' => 'required|max:255',
                 'video_link' => 'required|url',
             ];
-    
+
             $messages = [
                 'title.required' => 'El campo titulo es requerido',
                 'title.max' => 'El campo titulo solo permite 255 caracteres',
@@ -219,41 +225,40 @@ class BannersController extends Controller
 
         try {
 
-            $Banner = Banners::where('id', $id)->first();
-            $Banner->title = $request->title;
-            $Banner->subtitle = $request->subtitle;
-            $Banner->description = $request->description;
-            $Banner->type = $request->type;
-            $Banner->status = 1;
+            $banner = Banners::where('id', $id)->first();
+            $banner->title = $request->title;
+            $banner->subtitle = $request->subtitle;
+            $banner->description = $request->description;
+            $banner->type = $request->type;
+            $banner->status = 1;
 
-            if($request->type == 'image'){
-                $Banner->button_text = $request->button_text;
-                $Banner->button_link = $request->url_button;
-                $Banner->content = $request->content;
-                $Banner->position = $request->position;
+            if ($request->type == 'image') {
+                $banner->button_text = $request->button_text;
+                $banner->button_link = $request->url_button;
+                $banner->content = $request->content;
+                $banner->position = $request->position;
             }
 
-            if($request->type == 'video'){
-                $Banner->video_link = $request->video_link;
+            if ($request->type == 'video') {
+                $banner->video_link = $request->video_link;
             }
 
-            if($Banner->save()){
+            if ($banner->save()) {
 
-                if($request->file('file')){
+                if ($request->file('file')) {
 
-                    if(@getimagesize(asset($Banner->photo_url))){
-                        unlink($Banner->photo_url);
+                    if (@getimagesize(asset($banner->photo_url))) {
+                        unlink($banner->photo_url);
                     }
 
                     $path = Storage::disk('public')->put('images/storage/banner', $request->file('file'));
-                    $Banner->fill(['photo_url' => $path])->save();
+                    $banner->fill(['photo_url' => $path])->save();
                 }
 
                 return redirect()->route('banners.index');
             }
 
             return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
-
         } catch (QueryException $e) {
             return back()->with('error', $e->getMessage());
         }

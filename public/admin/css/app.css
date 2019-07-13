@@ -18449,3 +18449,11 @@ div.dt-button-info h2 {
   outline: 0;
 }
 
+#type-image {
+  display: none;
+}
+
+#type-video {
+  display: none;
+}
+

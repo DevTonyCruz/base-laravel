@@ -86,7 +86,11 @@ File: Main Css File
 @import "custom/plugins/simplemde";
 @import "custom/plugins/typehead";
 @import "custom/plugins/sparklines";
-// Plugins
+
+// Plugins vendor
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
 @import '~summernote/dist/summernote-bs4';
 @import '~dropzone/dist/dropzone.css';
+
+// Custom
+@import "custom/custom.scss"

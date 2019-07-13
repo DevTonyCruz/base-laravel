@@ -72,7 +72,7 @@
                     <label for="description" class="col-3 col-form-label">Descripción</label>
                     <div class="col-9">
                         <textarea type="text"
-                            class="form-control wyswyg-content{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                            class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}"
                             id="description" name="description"
                             placeholder="Ingrese una descripción del banner">{{ $banner->description }}</textarea>
                         @if ($errors->has('description'))
@@ -133,18 +133,17 @@
                             @endif
                         </div>
                     </div>
-
+    
                     <div class="form-group row mb-3">
                         <label for="content" class="col-3 col-form-label">Contenido</label>
                         <div class="col-9">
-                            <div class="form-wyswyg{{ $errors->has('content') ? ' is-invalid' : '' }}">
-                                    {!! $banner->content !!}</div>
-                            <input type="hidden" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}"
-                                id="content" name="content" value="{!! $banner->content !!}">
+                            <textarea type="text" id="content" name="content" 
+                                        class="form-control wyswyg-content{{ $errors->has('content') ? ' is-invalid' : '' }}" 
+                                        placeholder="Ingrese el contenido">{{ $banner->content }}</textarea>
                             @if ($errors->has('content'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('content') }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('content') }}</strong>
+                                </span>
                             @endif
                         </div>
                     </div>
@@ -203,48 +202,4 @@
     </div> <!-- end card -->
 </div>
 
-@endsection
-
-@section('pagecss')
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-@endsection
-
-@section('pagescript')
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="{{ asset('js/wyswyg.js') }}" defer></script>
-
-<script type="text/javascript" defer>
-    document.getElementById("form-banner-admin").addEventListener("submit", function(event){
-        event.preventDefault();
-
-        var content = quill.root.innerHTML;
-
-        $("#content").val(content);
-
-        $('#form-banner-admin').submit();
-      });
-
-    document.getElementById("type").addEventListener("change", function(event){
-            var type = this.value;
-
-            alert(type);
-
-            switch(type){
-                case "image":
-                    $("#type-image").show();
-                    $("#type-video").hide();
-                    break;
-                case "video":
-                    $("#type-video").show();
-                    $("#type-image").hide();
-                    break;
-                default:
-                    $("#type-video").hide();
-                    $("#type-image").hide();
-                    break;
-            }
-
-    });
-
-</script>
 @endsection
