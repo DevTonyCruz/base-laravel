@@ -24,9 +24,9 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-    
+
                 <h4 class="header-title"><i class="mdi mdi-plus mr-1"></i>Agregar</h4>
-    
+
                 <form class="form-horizontal" id="form-banner-admin" action="{{ url('admin/banners/') }}" method="POST"
                     accept-charset="UTF-8" enctype="multipart/form-data">
                     @csrf
@@ -45,7 +45,7 @@
                             @endif
                         </div>
                     </div>
-    
+
                     <div class="form-group row mb-3">
                         <label for="title" class="col-3 col-form-label">Titulo</label>
                         <div class="col-9">
@@ -59,13 +59,13 @@
                             @endif
                         </div>
                     </div>
-    
+
                     <div class="form-group row mb-3">
                         <label for="slug" class="col-3 col-form-label">Slug</label>
                         <div class="col-9">
                             <input type="text" class="form-control {{ $errors->has('slug') ? ' is-invalid' : '' }}"
-                                id="slug" name="slug" placeholder="Ingrese el titulo del banner" value="{{ old('slug') }}"
-                                required>
+                                id="slug" name="slug" placeholder="Ingrese el titulo del banner"
+                                value="{{ old('slug') }}" required>
                             @if ($errors->has('slug'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('slug') }}</strong>
@@ -73,7 +73,7 @@
                             @endif
                         </div>
                     </div>
-    
+
                     <div class="form-group row mb-3">
                         <label for="subtitle" class="col-3 col-form-label">Subtitulo</label>
                         <div class="col-9">
@@ -87,13 +87,13 @@
                             @endif
                         </div>
                     </div>
-    
+
                     <div class="form-group row mb-3">
                         <label for="description" class="col-3 col-form-label">Descripción</label>
                         <div class="col-9">
                             <textarea type="text"
-                                class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}" id="description"
-                                name="description"
+                                class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}"
+                                id="description" name="description"
                                 placeholder="Ingrese una descripción del banner">{{ old('description') }}</textarea>
                             @if ($errors->has('description'))
                             <span class="invalid-feedback" role="alert">
@@ -102,9 +102,9 @@
                             @endif
                         </div>
                     </div>
-    
+
                     <div id="type-image" style="{{ (old('type') == 'image') ? 'display: block !important;' : '' }}">
-    
+
                         <div class="form-group row mb-3">
                             <label for="file" class="col-3 col-form-label">Imagen</label>
                             <div class="col-9">
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-    
+
                         <div class="form-group row mb-3">
                             <label for="button_text" class="col-3 col-form-label">Texto de botón</label>
                             <div class="col-9">
@@ -138,11 +138,12 @@
                                 @endif
                             </div>
                         </div>
-    
+
                         <div class="form-group row mb-3">
                             <label for="url_button" class="col-3 col-form-label">Enlace de botón</label>
                             <div class="col-9">
-                                <input type="text" class="form-control{{ $errors->has('url_button') ? ' is-invalid' : '' }}"
+                                <input type="text"
+                                    class="form-control{{ $errors->has('url_button') ? ' is-invalid' : '' }}"
                                     id="url_button" name="url_button" placeholder="Ingrese el enlace del botón"
                                     value="{{ old('url_button') }}">
                                 @if ($errors->has('url_button'))
@@ -152,7 +153,7 @@
                                 @endif
                             </div>
                         </div>
-    
+
                         <div class="form-group row mb-3">
                             <label for="content" class="col-3 col-form-label">Contenido</label>
                             <div class="col-9">
@@ -167,7 +168,7 @@
                                 @endif
                             </div>
                         </div>
-    
+
                         <div class="form-row mb-3">
                             <label class="col-3 col-form-label">Posición</label>
                             <div class="col-9 form-row align-items-center ">
@@ -194,16 +195,17 @@
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                     <div id="type-video" style="{{ (old('type') == 'video') ? 'display: block !important;' : '' }}">
-    
+
                         <div class="form-group row mb-3">
                             <label for="video_link" class="col-3 col-form-label">Enlace de video</label>
                             <div class="col-9">
-                                <input type="text" class="form-control{{ $errors->has('video_link') ? ' is-invalid' : '' }}"
-                                    id="video_link" name="video_link" placeholder="Ingrese el enlace del video a mostrar"
-                                    value="{{ old('video_link') }}">
+                                <input type="text"
+                                    class="form-control{{ $errors->has('video_link') ? ' is-invalid' : '' }}"
+                                    id="video_link" name="video_link"
+                                    placeholder="Ingrese el enlace del video a mostrar" value="{{ old('video_link') }}">
                                 @if ($errors->has('video_link'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('video_link') }}</strong>
@@ -212,22 +214,36 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="form-group mb-0 justify-content-end row">
                         <div class="col-9">
                             <button type="submit" class="btn btn-info">Guardar</button>
                         </div>
                     </div>
                 </form>
-    
+
             </div> <!-- end card-body -->
         </div> <!-- end card -->
     </div>
-    
+
     <div class="col-6">
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title text-center">BANNER</h4>
+            </div>
+            <div class="card-body">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item text-center active">
+                            <img class="d-block w-100"
+                                src="http://formoid.com/articles/data/upload/2017/04/responsive_images.jpg"
+                                alt="First slide">
+                                <div class="align-middle">
+                                        <span >middle</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -265,7 +281,30 @@
             var slug = custom.string_to_slug(this.value);
             $("#slug").val(slug);
         });
-	}
+        
+        $('#file').change(function(e) {
+            addImage(e); 
+        });
+
+        function addImage(e){
+            var file = e.target.files[0],
+            imageType = /image.*/;
+            
+            $('#file-label').html(file.name);
+
+            if (!file.type.match(imageType))
+            return;
+
+            var reader = new FileReader();
+            reader.onload = fileOnload;
+            reader.readAsDataURL(file);
+        }
+
+        function fileOnload(e) {
+            var result=e.target.result;
+            $('#imgSalida').attr("src",result);
+        }
+  };
 </script>
 
 @endsection
