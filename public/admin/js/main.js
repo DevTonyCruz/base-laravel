@@ -466,6 +466,10 @@
     toolbar: [// [groupName, [list of button]]
     ['style', ['bold', 'italic', 'underline']], ['font', ['strikethrough']], ['fontsize', ['fontsize']], ['color', ['color']]]
   });
+  $('.slug').on('keyup', function () {
+    var slug = custom.string_to_slug(this.value);
+    $("#slug").val(slug);
+  });
 }(window.jQuery), //initializing main application module
 function ($) {
   "use strict";

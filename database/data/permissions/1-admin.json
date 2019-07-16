@@ -1,8 +1,0 @@
-[{
-    "modulo": "Admin",
-    "data": [{
-        "name": "Dashboard",
-        "controller": "Admin",
-        "slug": "admin.home"
-    }]
-}]

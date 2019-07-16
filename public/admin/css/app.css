@@ -18449,11 +18449,39 @@ div.dt-button-info h2 {
   outline: 0;
 }
 
-#type-image {
+.type-image {
   display: none;
 }
 
-#type-video {
+.type-video {
   display: none;
+}
+
+.preview-banner-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 2.5em;
+}
+
+.div-table {
+  display: table;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.div-row {
+  display: table-row;
+  height: 100%;
+  width: 100%;
+}
+
+.div-cell {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
 

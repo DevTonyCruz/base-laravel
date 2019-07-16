@@ -444,6 +444,7 @@ function ($) {
  
 function ($) {
     'use strict';
+    
     $('.wyswyg-content').summernote({
         height: 150,
         toolbar: [
@@ -453,6 +454,11 @@ function ($) {
             ['fontsize', ['fontsize']],
             ['color', ['color']]
         ]
+    });
+
+    $('.slug').on('keyup', function(){
+        var slug = custom.string_to_slug(this.value);
+        $("#slug").val(slug);
     });
 
 }(window.jQuery),

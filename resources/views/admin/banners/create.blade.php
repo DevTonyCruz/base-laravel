@@ -21,7 +21,7 @@
 
 <div class="row">
 
-    <div class="col-lg-6">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
 
@@ -49,7 +49,7 @@
                     <div class="form-group row mb-3">
                         <label for="title" class="col-3 col-form-label">Titulo</label>
                         <div class="col-9">
-                            <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                            <input type="text" class="form-control slug{{ $errors->has('title') ? ' is-invalid' : '' }}"
                                 id="title" name="title" placeholder="Ingrese el titulo del banner"
                                 value="{{ old('title') }}" required>
                             @if ($errors->has('title'))
@@ -103,7 +103,7 @@
                         </div>
                     </div>
 
-                    <div id="type-image" style="{{ (old('type') == 'image') ? 'display: block !important;' : '' }}">
+                    <div class="type-image" style="{{ (old('type') == 'image') ? 'display: block !important;' : '' }}">
 
                         <div class="form-group row mb-3">
                             <label for="file" class="col-3 col-form-label">Imagen</label>
@@ -197,7 +197,7 @@
                         </div>
 
                     </div>
-                    <div id="type-video" style="{{ (old('type') == 'video') ? 'display: block !important;' : '' }}">
+                    <div class="type-video" style="{{ (old('type') == 'video') ? 'display: block !important;' : '' }}">
 
                         <div class="form-group row mb-3">
                             <label for="video_link" class="col-3 col-form-label">Enlace de video</label>
@@ -226,84 +226,39 @@
         </div> <!-- end card -->
     </div>
 
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="header-title text-center">BANNER</h4>
-            </div>
-            <div class="card-body">
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item text-center active">
-                            <img class="d-block w-100"
-                                src="http://formoid.com/articles/data/upload/2017/04/responsive_images.jpg"
-                                alt="First slide">
-                                <div class="align-middle">
-                                        <span >middle</span>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 @endsection
 
 @section('js')
-
 <script type="text/javascript" defer>
     document.getElementById("type").addEventListener("change", function(event){
             var type = this.value;
 
             switch(type){
                 case "image":
-                    $("#type-image").show();
-                    $("#type-video").hide();
+                    $(".type-image").show();
+                    $(".type-video").hide();
                     break;
                 case "video":
-                    $("#type-video").show();
-                    $("#type-image").hide();
+                    $(".type-video").show();
+                    $(".type-image").hide();
                     break;
                 default:
-                    $("#type-video").hide();
-                    $("#type-image").hide();
+                    $(".type-video").hide();
+                    $(".type-image").hide();
                     break;
             }
 
     });
-
     
-    window.onload=function() {
-        $('#title').on('keyup', function(){
-
-            var slug = custom.string_to_slug(this.value);
-            $("#slug").val(slug);
-        });
+    window.onload=function() {        
         
         $('#file').change(function(e) {
-            addImage(e); 
-        });
-
-        function addImage(e){
             var file = e.target.files[0],
             imageType = /image.*/;
-            
+
             $('#file-label').html(file.name);
-
-            if (!file.type.match(imageType))
-            return;
-
-            var reader = new FileReader();
-            reader.onload = fileOnload;
-            reader.readAsDataURL(file);
-        }
-
-        function fileOnload(e) {
-            var result=e.target.result;
-            $('#imgSalida').attr("src",result);
-        }
+        });
   };
 </script>
 
