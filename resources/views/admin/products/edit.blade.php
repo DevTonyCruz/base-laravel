@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="form-group row mb-3">
-                        <label for="file" class="col-3 col-form-label">Imagen</label>
+                        <label for="file" class="col-3 col-form-label">Imagen principal</label>
                         <div class="col-9">
                             <div class="input-group">
                                 <div class="custom-file">
@@ -135,6 +135,25 @@
                                 Archivo anterior:
                                 <a href="{{ $producto->photo_url }}" download="">{{ $producto->name }}</a>
                             </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label for="file-secondary" class="col-3 col-form-label">Imagenes secundarias</label>
+                        <div class="col-9">
+                            <div class="custom-file">
+                                <input type="file" id="file-secondary" name="file-secondary[]"
+                                    class="custom-file-input form-control {{ $errors->has('file-secondary') ? ' is-invalid' : '' }}"
+                                    accept="image/x-png,image/gif,image/jpeg" multiple>
+                                @if ($errors->has('file-secondary'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('file-secondary') }}</strong>
+                                </span>
+                                @endif
+                                <label class="custom-file-label" id="file-label">
+                                    Elige uno o varios archivos
+                                </label>
+                            </div>
                         </div>
                     </div>
 
@@ -212,9 +231,5 @@
         </div> <!-- end card -->
     </div>
 </div>
-
-@endsection
-
-@section('pagescript')
 
 @endsection

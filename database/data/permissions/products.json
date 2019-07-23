@@ -61,6 +61,11 @@
                 "name": "Borrar Imagenes",
                 "controller": "Products",
                 "slug": "products.imagesDelete"
+            },
+            {
+                "name": "Ordenar Imagenes",
+                "controller": "Products",
+                "slug": "products.orderImages"
             }
         ]
     }

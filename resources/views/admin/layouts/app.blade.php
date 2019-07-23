@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <!-- <meta name="robots" content="nofollow" />-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Proyecto Arca" name="description" />
@@ -61,7 +62,7 @@
     @if (session('status'))
     <script type="text/javascript" defer>
         window.addEventListener("load",function(event) {
-            custom.modal_permissions();
+            custom.modal_errors();
 		});
     </script>
     @endif

@@ -470,6 +470,11 @@
     var slug = custom.string_to_slug(this.value);
     $("#slug").val(slug);
   });
+  $("#datatable").DataTable({
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+    }
+  });
 }(window.jQuery), //initializing main application module
 function ($) {
   "use strict";

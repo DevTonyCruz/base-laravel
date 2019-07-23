@@ -12,7 +12,6 @@
 */
 
 
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Admin Access Routes
@@ -104,6 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'permission']], func
         Route::post('/images',          'Web\Admin\ProductsController@imagesSave')->name('products.saveImages');
         Route::delete('/images/{id}',   'Web\Admin\ProductsController@imagesDelete')->name('products.imagesDelete');
         Route::put('/images/status/{id}','Web\Admin\ProductsController@imagesStatus')->name('products.statusImages');
+        Route::post('/images/order',    'Web\Admin\ProductsController@orderImages')->name('products.orderImages');
     });
 
     Route::group(['prefix' => 'topics'], function () {

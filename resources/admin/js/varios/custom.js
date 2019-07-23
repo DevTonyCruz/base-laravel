@@ -13,6 +13,10 @@ export function modal_permissions() {
     $('#modal-permiso').modal();
 }
 
+export function modal_errors() {
+    $('#modal-error').modal();
+}
+
 $('#select-all').click(function(event) {
 
     if (this.checked) {

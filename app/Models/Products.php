@@ -20,6 +20,6 @@ class Products extends Model
 
     public function imagenes()
     {
-        return $this->hasMany('App\Models\Products_images', 'product_id', 'id');
+        return $this->hasMany('App\Models\Products_images', 'product_id', 'id')->orderBy('order');
     }
 }

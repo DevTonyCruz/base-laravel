@@ -74,10 +74,10 @@ class ProductsController extends Controller
         $this->validate($request, $rules, $messages);
 
         try {
-            
+
             $product = Products::where('sku', $request->sku)->count();
 
-            if($product == 0){
+            if ($product == 0) {
 
                 $product = new Products();
                 $product->sku = strtoupper($request->sku);
@@ -86,35 +86,37 @@ class ProductsController extends Controller
                 $product->description = $request->description;
                 $product->price = $request->price;
                 $product->category_id = $request->category_id;
-    
-                if($product->save()){
-    
-                    if($request->file('file')){
-                        $path = Storage::disk('public')->put('images/storage/products', $request->file('file'));
-                        $product->fill(['photo_url' => $path])->save();
+
+                if ($product->save()) {
+
+                    if ($request->file('file')) {
+                        $file = $request->file('file');
+                        $file_name = str_replace(' ', '-', strtolower($file->getClientOriginalName()));
+                        $temp_file = 'images/storage/products/' . $file_name;
+                        $path = Storage::disk('public')->put($temp_file, file_get_contents($file));
+                        $product->fill(['photo_url' => $temp_file])->save();
                     }
-    
+
+                    $this->save_secondary_images($request->file('file-secondary'), $product->id);
+
                     $sotck = new Stock();
                     $sotck->product_id = $product->id;
                     $sotck->quantity = $request->initial;
                     $sotck->max_quantity = $request->maximum;
                     $sotck->min_quantity = $request->minimum;
-    
+
                     $sotck->save();
-    
+
                     return redirect()->route('products.index');
                 }
-    
+
                 return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+            } else {
 
-            }else{
-    
                 return back()
-                ->withInput()
-                ->withErrors(['sku' => 'Ya existe un producto con este SKU.']);
-
+                    ->withInput()
+                    ->withErrors(['sku' => 'Ya existe un producto con este SKU.']);
             }
-
         } catch (QueryException $e) {
             return back()->with('status', $e->getMessage());
         }
@@ -186,60 +188,59 @@ class ProductsController extends Controller
 
             $product = Products::where('sku', $request->sku)->where('id', '<>', $id)->count();
 
-            if($product == 0){
-            
+            if ($product == 0) {
+
                 $product = Products::where('id', $id)->first();
                 $product->sku = strtoupper($request->sku);
                 $product->name = $request->name;
                 $product->description = $request->description;
                 $product->price = $request->price;
                 $product->category_id = $request->category_id;
-    
-                if($product->save()){
-    
-                    if($request->file('file')){
-    
-                        if(@getimagesize(asset($product->photo_url))){
+
+                if ($product->save()) {
+
+                    if ($request->file('file')) {
+
+                        if (@getimagesize(asset($product->photo_url))) {
                             unlink($product->photo_url);
                         }
-    
+
                         $path = Storage::disk('public')->put('images/storage/products', $request->file('file'));
                         $product->fill(['photo_url' => $path])->save();
-                    }
-    
+                    }                    
+
+                    $this->save_secondary_images($request->file('file-secondary'), $id);
+
                     $sotck = Stock::where('product_id', $id)->first();
-    
+
                     $moves = new Stock_moves();
                     $moves->description = $request->description_move;
                     $moves->stock_old = $sotck->quantity;
                     $moves->stock_add = $request->add_stock;
                     $moves->stock_new = $sotck->quantity + $request->add_stock;
-                    $moves->user = auth()->user()->id;
-    
-                    if($moves->save()){
-    
+                    $moves->user_id = auth()->user()->id;
+
+                    if ($moves->save()) {
+
                         $sotck->quantity = $sotck->quantity + $request->add_stock;
                         $sotck->max_quantity = $request->maximum;
                         $sotck->min_quantity = $request->minimum;
-    
+
                         $sotck->save();
                     }
-    
+
                     return redirect()->route('products.index');
                 }
-    
+
                 return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+            } else {
 
-            }else{
-    
                 return back()
-                ->withInput()
-                ->withErrors(['sku' => 'Ya existe un producto con este SKU.']);
-
+                    ->withInput()
+                    ->withErrors(['sku' => 'Ya existe un producto con este SKU.']);
             }
-
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -253,23 +254,23 @@ class ProductsController extends Controller
     {
         $producto = Products::where('id', $id)->first();
 
-        if($producto->stock->quantity > 0){
+        if ($producto->stock->quantity > 0) {
 
             return back()->with('status', 'No puede eliminar un producto que tenga existencias.');
-        }else{
+        } else {
 
-            if(@getimagesize(asset($producto->photo_url))){
+            if (@getimagesize(asset($producto->photo_url))) {
                 unlink($producto->photo_url);
 
-                foreach ($producto->imagenes as $imagenes){
-                    if(@getimagesize(asset($imagenes->photo_url))){
+                foreach ($producto->imagenes as $imagenes) {
+                    if (@getimagesize(asset($imagenes->photo_url))) {
                         unlink($imagenes->photo_url);
 
                         Products_images::where('id', $imagenes->id)->delete();
                     }
                 }
 
-                if($producto->delete()){
+                if ($producto->delete()) {
 
                     return redirect()->route('products.index');
                 }
@@ -297,15 +298,14 @@ class ProductsController extends Controller
                 $producto->status = 1;
             }
 
-            if($producto->save()){
+            if ($producto->save()) {
 
                 return redirect()->route('products.index');
             }
 
-            return back()->with('error', 'Por el momento no se puede realizar la acción solicitada.');
-
+            return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -347,9 +347,9 @@ class ProductsController extends Controller
             $productImage->product_id = $request->product_id;
             $productImage->status = 1;
 
-            if($productImage->save()){
+            if ($productImage->save()) {
 
-                if($request->file('file')){
+                if ($request->file('file')) {
                     $path = Storage::disk('public')->put('images/storage/products', $request->file('file'));
                     $productImage->fill(['photo_url' => $path])->save();
                 }
@@ -358,7 +358,6 @@ class ProductsController extends Controller
             }
 
             return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
-
         } catch (QueryException $e) {
             return back()->with('status', $e->getMessage());
         }
@@ -376,19 +375,18 @@ class ProductsController extends Controller
 
             $imagen = Products_images::where('id', $id)->first();
 
-            if(@getimagesize(asset($imagen->photo_url))){
+            if (@getimagesize(asset($imagen->photo_url))) {
                 unlink($imagen->photo_url);
 
-                if($imagen->delete()){
+                if ($imagen->delete()) {
 
                     return redirect()->route('products.show', ['id' => $imagen->product_id]);
                 }
             }
 
             return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
-
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
         }
     }
 
@@ -410,15 +408,87 @@ class ProductsController extends Controller
                 $imagen->status = 1;
             }
 
-            if($imagen->save()){
+            if ($imagen->save()) {
 
                 return redirect()->route('products.show', ['id' => $imagen->product_id]);
             }
 
             return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
-
         } catch (QueryException $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('status', $e->getMessage());
+        }
+    }
+
+    public function orderImages(Request $request){
+        $rules = [
+            'order' => 'required|max:5|min:1|numeric',
+            'id_image' => 'required',
+            'id_product' => 'required'
+        ];
+
+        $messages = [
+            'order.required' => 'Debe seleccionar una posición',
+            'order.numeric' => 'Debe seleccionar una posición',
+            'order.min' => 'Debe seleccionar una posición',
+            'order.max' => 'Debe seleccionar una posición',
+            'id_product.required' => 'El id del producto es requerido',
+            'id_image.required' => 'El id de la imagen es requerido',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+        try {
+
+            $productImage = Products_images::where('id', $request->id_image)->first();
+            $productImage->order = $request->order;
+            
+            if($productImage->save()) {
+
+                $imagenes = Products_images::where('product_id', $request->id_product)->orderBy('order')->get();
+
+                $contador = 1;
+                foreach($imagenes as $imagen){
+
+                    $picture = Products_images::where('id', $imagen->id)->first();
+                    $picture->order = $contador;
+
+                    $picture->save();
+
+                    $contador++;
+                }
+
+                return redirect()->route('products.show', ['id' => $request->id_product]);
+            }
+
+            return back()->with('status', 'Por el momento no se puede realizar la acción solicitada.');
+        } catch (QueryException $e) {
+            return back()->with('status', $e->getMessage());
+        }
+    }
+
+    private function save_secondary_images($files, $product_id){
+
+        if ($files) {
+            foreach ($files as $file) {
+                $file_name = str_replace(' ', '-', strtolower($file->getClientOriginalName()));
+                $temp_file = 'images/storage/products/secondary-' . $file_name;
+                $path = Storage::disk('public')->put($temp_file, file_get_contents($file));
+
+                if ($path) {
+
+                    $product_file = new Products_images();
+                    $product_file->product_id = $product_id;
+                    $product_file->photo_url = $temp_file;
+                    $product_file->order = 6;
+
+
+                    if (!$product_file->save()) {
+                        if (@getimagesize(asset($temp_file))) {
+                            unlink($temp_file);
+                        }
+                    }
+                }
+            }
         }
     }
 }

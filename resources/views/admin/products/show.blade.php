@@ -34,7 +34,7 @@
                                     alt="Product-img">
                             </a>
 
-                            <div class="d-lg-flex d-none justify-content-center">
+                            <div class="row d-lg-flex d-none justify-content-center">
                                 <a href="javascript: void(0);">
                                     <img src="{{ asset($producto->photo_url) }}" class="img-fluid img-thumbnail p-2"
                                         style="max-width: 75px;" alt="Product-img">
@@ -57,18 +57,14 @@
 
                                 <!-- Product stock -->
                                 <div class="mt-3">
-                                    @if ($producto->stock->quantity < 0) <h4><span
-                                            class="badge badge-danger-lighten">Sin existencia</span></h4>
-                                        @elseif ($producto->stock->quantity > 0 &&
-                                        $producto->stock->quantity < $producto->stock->min_quantity)
+                                    @if ($producto->stock->quantity < 0) <h4>
+                                        <span class="badge badge-danger-lighten">Sin existencia</span></h4>
+                                        <h4><span class="badge badge-success-lighten">En stock</span></h4>
+
+                                        @elseif ($producto->stock->quantity > 0 && $producto->stock->quantity <
+                                            $producto->stock->min_quantity)
                                             <h4><span class="badge badge-danger-lighten">Existencia baja</span></h4>
-                                            @elseif ($producto->stock->quantity > 0 &&
-                                            $producto->stock->quantity > $producto->stock->min_quantity &&
-                                            $producto->stock->quantity < $producto->stock->max_quantity)
-                                                <h4><span class="badge badge-success-lighten">En stock</span></h4>
-                                                @else
-                                                I dont have any records!
-                                                @endif
+                                            @endif
                                 </div>
 
                                 <div class="mt-3">
@@ -138,18 +134,20 @@
                                             title="category-img" class="rounded mr-3" height="48">
                                     </td>
                                     <td>
-                                        <select class="form-control select2" id="position_{{ $imagenes->id }}"
-                                            name="position_{{ $imagenes->id }}" data-toggle="select2">
+                                        <select class="form-control select2 select-position"
+                                            id="position_{{ $imagenes->id }}" name="position_{{ $imagenes->id }}"
+                                            data-toggle="select2" data-id-image="{{ $imagenes->id }}"
+                                            data-id-product="{{ $producto->id }}">
                                             <option value="S">Seleccionar</option>
-                                            <option value="1" {{ $imagenes->id == 1 ? "selected":"" }}>Primera Posición
+                                            <option value="1" {{ $imagenes->order == 1 ? "selected":"" }}>Primera Posición
                                             </option>
-                                            <option value="2" {{ $imagenes->id == 2 ? "selected":"" }}>Segunda Posición
+                                            <option value="2" {{ $imagenes->order == 2 ? "selected":"" }}>Segunda Posición
                                             </option>
-                                            <option value="3" {{ $imagenes->id == 3 ? "selected":"" }}>Tercera Posición
+                                            <option value="3" {{ $imagenes->order == 3 ? "selected":"" }}>Tercera Posición
                                             </option>
-                                            <option value="4" {{ $imagenes->id == 4 ? "selected":"" }}>Cuarta Posición
+                                            <option value="4" {{ $imagenes->order == 4 ? "selected":"" }}>Cuarta Posición
                                             </option>
-                                            <option value="5" {{ $imagenes->id == 5 ? "selected":"" }}>Quinta Posición
+                                            <option value="5" {{ $imagenes->order == 5 ? "selected":"" }}>Quinta Posición
                                             </option>
                                         </select>
                                     </td>
@@ -200,5 +198,46 @@
     </div>
 </div>
 
+<form method="POST" id="form_order" action="{{ url('admin/products/images/order/') }}">
+    @csrf
+    <input type="hidden" id="id_image" name="id_image">
+    <input type="hidden" id="id_product" name="id_product">
+    <input type="hidden" id="order" name="order">
+</form>
 
+@if ($errors->has('order'))
+@include('admin.elements.error-modal')
+@endif
+@endsection
+
+@section('js')
+
+<script type="text/javascript" defer>
+    window.onload=function() {
+    $(".select-position").on("change", function(){
+
+        var order = $(this).val();
+        
+        var id_image = $(this).attr('data-id-image');
+        var id_product = $(this).attr('data-id-product');
+
+        $("#id_image").val(id_image);
+        $("#id_product").val(id_product);
+        $("#order").val(order);
+
+        $("#form_order").submit();
+    })
+
+    
+
+}
+</script>
+
+@if ($errors->has('order'))
+<script type="text/javascript" defer>
+    window.addEventListener("load",function(event) {
+            custom.modal_errors();
+		});
+</script>
+@endif
 @endsection

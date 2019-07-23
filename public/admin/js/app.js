@@ -96926,13 +96926,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/admin/js/varios/custom.js ***!
   \*********************************************/
-/*! exports provided: mostrar_password, modal_permissions, string_to_slug */
+/*! exports provided: mostrar_password, modal_permissions, modal_errors, string_to_slug */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mostrar_password", function() { return mostrar_password; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modal_permissions", function() { return modal_permissions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modal_errors", function() { return modal_errors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string_to_slug", function() { return string_to_slug; });
 function mostrar_password() {
   var cambio = document.getElementById("password");
@@ -96947,6 +96948,9 @@ function mostrar_password() {
 }
 function modal_permissions() {
   $('#modal-permiso').modal();
+}
+function modal_errors() {
+  $('#modal-error').modal();
 }
 $('#select-all').click(function (event) {
   if (this.checked) {
