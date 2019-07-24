@@ -96791,7 +96791,7 @@ var select2 = __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js
 
 var moment = window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-var custom = window.custom = __webpack_require__(/*! ./varios/custom */ "./resources/admin/js/varios/custom.js");
+var custom = window.custom = __webpack_require__(/*! ./varios/custom */ "./resources/admin/js/varios/custom.js"); //Frontend
 
 /***/ }),
 

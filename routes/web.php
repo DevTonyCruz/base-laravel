@@ -14,6 +14,14 @@
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'sepomex'], function () {
+    Route::post('/get-states',                      'Web\Admin\SepomexController@get_states')->name('sepomex.getStates');
+    Route::post('/get-location-by-state',           'Web\Admin\SepomexController@get_location_by_state')->name('sepomex.getLocationByState');
+    Route::post('/get-colonies-by-location-state',  'Web\Admin\SepomexController@get_colonies_by_location_state')->name('sepomex.getColoniesByLocationState');
+    Route::post('/get-zip-code',                    'Web\Admin\SepomexController@get_zip_code')->name('sepomex.getZipCode');
+    Route::post('/get-search-zip-code',             'Web\Admin\SepomexController@get_search_zip_code')->name('sepomex.getSearchZipCode');
+});
+
 // Admin Access Routes
 Route::group(['prefix' => 'admin'], function () {
 

@@ -47,3 +47,5 @@ const select2 = require('select2');
 const moment = window.moment = require('moment');
 
 const custom = window.custom = require('./varios/custom');
+
+//Frontend
