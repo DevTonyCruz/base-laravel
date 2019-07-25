@@ -35,15 +35,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('register', 'Web\Admin\Auth\RegisterController@register');
 
     // Password Reset
-    Route::get('password/reset', 'Web\Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-    Route::post('password/email', 'Web\Admin\Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-    Route::get('password/reset/{token}', 'Web\Admin\Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
-    Route::post('password/reset', 'Web\Admin\Auth\ResetPasswordController@reset')->name('admin.password.update');
+    Route::get('password/reset', 'Web\Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Web\Admin\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Web\Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Web\Admin\Auth\ResetPasswordController@reset')->name('password.update');
 
     // Email Verification
-    Route::get('email/verify', 'Web\Admin\Auth\VerificationController@show')->name('admin.verification.notice');
-    Route::get('email/verify/{id}', 'Web\Admin\Auth\VerificationController@verify')->name('admin.verification.verify');
-    Route::get('email/resend', 'Web\Admin\Auth\VerificationController@resend')->name('admin.verification.resend');
+    Route::get('email/verify', 'Web\Admin\Auth\VerificationController@show')->name('verification.notice');
+    Route::get('email/verify/{id}', 'Web\Admin\Auth\VerificationController@verify')->name('verification.verify');
+    Route::get('email/resend', 'Web\Admin\Auth\VerificationController@resend')->name('verification.resend');
 });
 
 

@@ -61147,9 +61147,9 @@ var select2 = __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js
 
 var moment = window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-var objectRequest = window.custom = __webpack_require__(/*! ./request */ "./resources/front/js/request.js");
+var RequestObject = window.custom = __webpack_require__(/*! ./request */ "./resources/front/js/request.js");
 
-var objectSepomex = window.custom = __webpack_require__(/*! ./sepomex */ "./resources/front/js/sepomex.js");
+var SepomexObject = window.custom = __webpack_require__(/*! ./sepomex */ "./resources/front/js/sepomex.js");
 
 /***/ }),
 

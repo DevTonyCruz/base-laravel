@@ -17,7 +17,7 @@
             <p class="text-muted mb-4">¿No tienes una cuenta? Crea tu cuenta, te llevará menos de un minuto</p>
 
             <!-- form -->
-            <form method="POST" action="{{ url('/register') }}">
+            <form method="POST" action="{{ url('admin/register') }}">
                 @csrf
                 <div class="form-group">
                     <label for="fullname">Nombre</label>

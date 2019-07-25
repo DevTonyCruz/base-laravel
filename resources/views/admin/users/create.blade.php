@@ -27,7 +27,7 @@
 
                 <h4 class="header-title"><i class="mdi mdi-plus mr-1"></i>Agregar</h4>
 
-                <form class="form-horizontal" action="{{ url('admin/users/') }}" method="POST">
+                <form class="form-horizontal" action="{{ url('admin/register') }}" method="POST">
                     @csrf
                     <div class="form-group row mb-3">
                         <label for="name" class="col-3 col-form-label">Nombre</label>
