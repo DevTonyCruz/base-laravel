@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Proyecto Arca" name="description" />
     <meta content="Estrasol" name="author" />
+    <meta name="Urlapp" content="{{ config('app.url', '') }}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
