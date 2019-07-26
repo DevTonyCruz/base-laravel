@@ -47,5 +47,7 @@ const select2 = require('select2');
 const moment = window.moment = require('moment');
 
 const custom = window.custom = require('./varios/custom');
+const RequestObject = window.RequestObject = require('./varios/request');
+const SepomexObject = window.SepomexObject = require('./varios/sepomex');
 
 //Frontend

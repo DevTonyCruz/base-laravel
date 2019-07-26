@@ -16,6 +16,6 @@ const slimscroll = require('jquery-slimscroll');
 const select2 = require('select2');
 const moment = window.moment = require('moment');
 
-const objectRequest = window.custom = require('./request');
-const objectSepomex = window.custom = require('./sepomex');
+const RequestObject = window.custom = require('./request');
+const SepomexObject = window.custom = require('./sepomex');
 
