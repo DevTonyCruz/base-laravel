@@ -10,9 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/*
+//Demo sepomex
 Route::get('/sepomex', function(){
     return view('admin.sepomex.index');
 });
+*/
 
 Route::get('/home', 'HomeController@index')->name('home');
 
