@@ -25,6 +25,7 @@ Pasos para iniciar el proyecto:
 ~~~~
 composer update
 npm update
+npm run dev
 php artisan migrate
 php artisan db:seed
 ~~~~
