@@ -20,7 +20,8 @@ class PermissionsSeeder extends Seeder
         $dir = 'database/data/permissions/';
         $archivos = [
             "admin", "roles", "users", "configuration", "pages",
-            "faqs", "topics", "banners", "categories", "products"
+            "faqs", "topics", "banners", "categories", "products",
+            "profile"
         ];
         
         foreach($archivos as $archivo){

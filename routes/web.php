@@ -11,12 +11,12 @@
 |
 */
 
-/*
+
 //Demo sepomex
 Route::get('/sepomex', function(){
     return view('admin.sepomex.index');
 });
-*/
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -162,5 +162,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'permission']], func
         Route::put('/{id}',             'Web\Admin\PagesController@update')->name('pages.update');
         Route::delete('/{id}',          'Web\Admin\PagesController@destroy')->name('pages.destroy');
         Route::put('/status/{id}',      'Web\Admin\PagesController@status')->name('pages.status');
+    });
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/',                 'Web\Admin\ProfileController@index')->name('profile.index');
+        Route::get('/create',           'Web\Admin\ProfileController@create')->name('profile.create');
+        Route::post('/',                'Web\Admin\ProfileController@store')->name('profile.store');
+        Route::get('/{id}',             'Web\Admin\ProfileController@show')->name('profile.show');
+        Route::get('/{id}/edit',        'Web\Admin\ProfileController@edit')->name('profile.edit');
+        Route::put('/{id}',             'Web\Admin\ProfileController@update')->name('profile.update');
+        Route::delete('/{id}',          'Web\Admin\ProfileController@destroy')->name('profile.destroy');
+        Route::put('/status/{id}',      'Web\Admin\ProfileController@status')->name('profile.status');
     });
 });

@@ -134,11 +134,11 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
-                    <img src="{{ asset('admin/images/users/avatar-1.jpg') }}" alt="user-image" class="rounded-circle">
+                    <img src="{{ asset('admin/images/user.png') }}" alt="user-image" class="rounded-circle">
                 </span>
                 <span>
-                    <span class="account-user-name">Dominic Keller</span>
-                    <span class="account-position">Founder</span>
+                    <span class="account-user-name">{{ Auth::user()->name }}</span>
+                    <span class="account-position">{{ Auth::user()->rol->name }}</span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
@@ -148,7 +148,7 @@
                 </div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{ route('profile.index') }}" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle mr-1"></i>
                     <span>Mi perfil</span>
                 </a>
