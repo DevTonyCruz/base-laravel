@@ -56,14 +56,14 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('admin/js/app.js') }}" defer></script>
-    <script src="{{ asset('admin/js/main.js') }}" defer></script>
+    <script src="{{ asset('admin/js/app.js') }}"></script>
+    <script src="{{ asset('admin/js/main.js') }}"></script>
 
     @if (session('status'))
-    <script type="text/javascript" defer>
-        window.addEventListener("load",function(event) {
+    <script type="text/javascript">
+        $(document).ready(function(){
             custom.modal_permissions();
-		});
+        });
     </script>
     @endif
 

@@ -59,6 +59,10 @@ Estructura de permisos
 Como se puede apreciar en la estructura el nombre de la ruta se coloca en 
 el campos slug.
 
+Después de haber realizado esto se debe de abrir el seeder PermissionsSeeder y una vez dentro de el se debe buscar 
+un arreglo llamado archivos y agregar un nuevo elemento con el nombre del archivo de permisos si la extención del 
+mismo, esto se realiza para que pueda ser leido por el seeder.
+
 Después de haber realizado esto se debe ejecutar el siguiente comando:
 
 ~~~~

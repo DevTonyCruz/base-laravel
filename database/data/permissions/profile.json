@@ -1,0 +1,47 @@
+[
+    {
+        "modulo": "Perfil",
+        "data": [
+            {
+                "name": "Listado",
+                "controller": "Perfil",
+                "slug": "profile.index"
+            },
+            {
+                "name": "Crear",
+                "controller": "Perfil",
+                "slug": "profile.create"
+            },
+            {
+                "name": "Guardar",
+                "controller": "Perfil",
+                "slug": "profile.store"
+            },
+            {
+                "name": "Visualizar",
+                "controller": "Perfil",
+                "slug": "profile.show"
+            },
+            {
+                "name": "Editar",
+                "controller": "Perfil",
+                "slug": "profile.edit"
+            },
+            {
+                "name": "Actualizar",
+                "controller": "Perfil",
+                "slug": "profile.update"
+            },
+            {
+                "name": "Borrar",
+                "controller": "Perfil",
+                "slug": "profile.destroy"
+            },
+            {
+                "name": "Estatus",
+                "controller": "Perfil",
+                "slug": "profile.status"
+            }
+        ]
+    }
+]
