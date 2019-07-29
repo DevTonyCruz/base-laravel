@@ -11,8 +11,22 @@
 |
 */
 
+/*
+//Demo sepomex
+Route::get('/sepomex', function(){
+    return view('admin.sepomex.index');
+});
+*/
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'sepomex'], function () {
+    Route::post('/get-states',                      'Web\Admin\SepomexController@get_states')->name('sepomex.getStates');
+    Route::post('/get-location-by-state',           'Web\Admin\SepomexController@get_location_by_state')->name('sepomex.getLocationByState');
+    Route::post('/get-colonies-by-location-state',  'Web\Admin\SepomexController@get_colonies_by_location_state')->name('sepomex.getColoniesByLocationState');
+    Route::post('/get-zip-code',                    'Web\Admin\SepomexController@get_zip_code')->name('sepomex.getZipCode');
+    Route::post('/get-search-zip-code',             'Web\Admin\SepomexController@get_search_zip_code')->name('sepomex.getSearchZipCode');
+});
 
 // Admin Access Routes
 Route::group(['prefix' => 'admin'], function () {
@@ -27,15 +41,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('register', 'Web\Admin\Auth\RegisterController@register');
 
     // Password Reset
-    Route::get('password/reset', 'Web\Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-    Route::post('password/email', 'Web\Admin\Auth\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-    Route::get('password/reset/{token}', 'Web\Admin\Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
-    Route::post('password/reset', 'Web\Admin\Auth\ResetPasswordController@reset')->name('admin.password.update');
+    Route::get('password/reset', 'Web\Admin\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Web\Admin\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Web\Admin\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Web\Admin\Auth\ResetPasswordController@reset')->name('password.update');
 
     // Email Verification
-    Route::get('email/verify', 'Web\Admin\Auth\VerificationController@show')->name('admin.verification.notice');
-    Route::get('email/verify/{id}', 'Web\Admin\Auth\VerificationController@verify')->name('admin.verification.verify');
-    Route::get('email/resend', 'Web\Admin\Auth\VerificationController@resend')->name('admin.verification.resend');
+    Route::get('email/verify', 'Web\Admin\Auth\VerificationController@show')->name('verification.notice');
+    Route::get('email/verify/{id}', 'Web\Admin\Auth\VerificationController@verify')->name('verification.verify');
+    Route::get('email/resend', 'Web\Admin\Auth\VerificationController@resend')->name('verification.resend');
 });
 
 

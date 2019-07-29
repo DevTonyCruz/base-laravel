@@ -51,7 +51,6 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Activo</th>
-                                    <th scope="col">Fecha de creación</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -62,7 +61,7 @@
                                     <td>{{ $user->name . ' ' . $user->first_last_name . ' ' . $user->second_last_name }}
                                     </td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->rol->name }}</td>
                                     <td>
                                         @php
                                         $checked = ""
@@ -85,7 +84,6 @@
                                             @csrf
                                         </form>
                                     </td>
-                                    <td>{{ $user->created_at }}</td>
                                     <td>
                                         <a href="{{ url('admin/users/' . $user->id) }}" class="action-icon" title="Ver">
                                             <i class="mdi mdi-eye-outline"></i></a>

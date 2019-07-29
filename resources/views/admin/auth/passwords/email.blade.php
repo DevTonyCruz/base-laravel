@@ -22,7 +22,7 @@
             <p class="text-muted mb-4">Ingrese su correo electrónico y le enviaremos un correo electrónico con instrucciones para restablecer su contraseña.</p>
 
             <!-- form -->
-            <form method="POST" action="{{ route('admin.password.email') }}">
+            <form method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="emailaddress">Correo electrónico</label>

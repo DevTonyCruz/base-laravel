@@ -96793,6 +96793,10 @@ var moment = window.moment = __webpack_require__(/*! moment */ "./node_modules/m
 
 var custom = window.custom = __webpack_require__(/*! ./varios/custom */ "./resources/admin/js/varios/custom.js");
 
+var RequestObject = window.RequestObject = __webpack_require__(/*! ./varios/request */ "./resources/admin/js/varios/request.js");
+
+var SepomexObject = window.SepomexObject = __webpack_require__(/*! ./varios/sepomex */ "./resources/admin/js/varios/sepomex.js"); //Frontend
+
 /***/ }),
 
 /***/ "./resources/admin/js/bootstrap.js":
@@ -96837,6 +96841,12 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -96980,6 +96990,214 @@ function string_to_slug(str) {
   .replace(/-+/g, '-'); // collapse dashes
 
   return str;
+}
+
+/***/ }),
+
+/***/ "./resources/admin/js/varios/request.js":
+/*!**********************************************!*\
+  !*** ./resources/admin/js/varios/request.js ***!
+  \**********************************************/
+/*! exports provided: AjaxJson, AjaxSimple */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AjaxJson", function() { return AjaxJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AjaxSimple", function() { return AjaxSimple; });
+function AjaxJson(method, url) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var URL_WEB = $('meta[name="Urlapp"]').attr('content');
+  var paramResponse = $.ajax({
+    method: method,
+    url: URL_WEB + '/' + url,
+    dataType: 'json',
+    data: data
+  }).done(function (data) {
+    return data;
+  }).fail(function (jqXHR, error, errorThrown) {
+    return jqXHR;
+  });
+  return paramResponse;
+}
+function AjaxSimple(method, url) {
+  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var URL_WEB = $('meta[name="Urlapp"]').attr('content');
+  var paramResponse = $.ajax({
+    method: method,
+    url: URL_WEB + '/' + url,
+    data: data
+  }).done(function (data) {
+    return data;
+  }).fail(function (jqXHR, error, errorThrown) {
+    return jqXHR;
+  });
+  return paramResponse;
+}
+
+/***/ }),
+
+/***/ "./resources/admin/js/varios/sepomex.js":
+/*!**********************************************!*\
+  !*** ./resources/admin/js/varios/sepomex.js ***!
+  \**********************************************/
+/*! exports provided: getStates, getLocation, getColony, getZipCode, searchZip, searchZipSelected */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStates", function() { return getStates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocation", function() { return getLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getColony", function() { return getColony; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getZipCode", function() { return getZipCode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchZip", function() { return searchZip; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchZipSelected", function() { return searchZipSelected; });
+function getStates(container) {
+  RequestObject.AjaxJson('POST', 'sepomex/get-states').then(function (response) {
+    $('#' + container + ' .state-data').empty();
+    $('#' + container + ' .state-data').append('<option value="S">Seleccionar</option>');
+    response.data.forEach(function (element) {
+      $('#' + container + ' .state-data').append('<option value="' + element.state + '">' + element.state + '</option>');
+    });
+  }, function (xhrObj, textStatus, err) {
+    alert(err);
+  });
+}
+function getLocation(container, state) {
+  $('#' + container + ' .location-data').removeAttr("disabled");
+  var data = {
+    state: state
+  };
+  RequestObject.AjaxJson('POST', 'sepomex/get-location-by-state', data).then(function (response) {
+    $('#' + container + ' .location-data').empty();
+    $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+    $('#' + container + ' .colony-data').empty();
+    $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+    $('#' + container + ' .sepomex-id').val('');
+    $('#' + container + ' .zip-code').val('');
+    response.data.forEach(function (element) {
+      $('#' + container + ' .location-data').append('<option value="' + element.location + '">' + element.location + '</option>');
+    });
+  }, function (xhrObj, textStatus, err) {
+    $('#' + container + ' .location-data').empty();
+    $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+    $('#' + container + ' .colony-data').empty();
+    $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+  });
+}
+function getColony(container, location) {
+  $('#' + container + ' .colony-data').removeAttr("disabled");
+  var state = $('#' + container + ' .state-data').val();
+  var data = {
+    'state': state,
+    'location': location
+  };
+  RequestObject.AjaxJson('POST', 'sepomex/get-colonies-by-location-state', data).then(function (response) {
+    $('#' + container + ' .colony-data').empty();
+    $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+    $('#' + container + ' .sepomex-id').val('');
+    $('#' + container + ' .zip-code').val('');
+    response.data.forEach(function (element) {
+      $('#' + container + ' .colony-data').append('<option value="' + element.id + '">' + element.name + ' - ' + element.zip_code + '</option>');
+    });
+  }, function (xhrObj, textStatus, err) {
+    alert(err);
+  });
+}
+function getZipCode(container, sepomex_id) {
+  var data = {
+    'sepomex_id': sepomex_id
+  };
+  RequestObject.AjaxJson('POST', 'sepomex/get-zip-code', data).then(function (response) {
+    $('#' + container + ' .zip-code').val(response.data.zip_code);
+    $('#' + container + ' .sepomex-id').val(response.data.id);
+  }, function (xhrObj, textStatus, err) {
+    alert(err);
+  });
+}
+function searchZip(container) {
+  var zip_code = $('#' + container + ' .zip-code').val();
+  $('#' + container + ' .sepomex-id').val('');
+
+  if (zip_code.length == 5) {
+    var data = {
+      'zip_code': zip_code
+    };
+    RequestObject.AjaxJson('POST', 'sepomex/get-search-zip-code', data).then(function (response) {
+      var state = response.data[0].state;
+      var location = response.data[0].location;
+      var colonies = response.data;
+      $('#' + container + ' .state-data').val(state);
+      var data = {
+        state: state
+      };
+      RequestObject.AjaxJson('POST', 'sepomex/get-location-by-state', data).then(function (response) {
+        $('#' + container + ' .location-data').removeAttr('disabled');
+        $('#' + container + ' .location-data').empty();
+        $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+        response.data.forEach(function (element) {
+          $('#' + container + ' .location-data').append('<option value="' + element.location + '">' + element.location + '</option>');
+        });
+        $('#' + container + ' .location-data').val(location);
+        $('#' + container + ' .colony-data').removeAttr('disabled');
+        $('#' + container + ' .colony-data').empty();
+        $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+        colonies.forEach(function (element) {
+          $('#' + container + ' .colony-data').append('<option value="' + element.id + '">' + element.name + ' - ' + element.zip_code + '</option>');
+        });
+      }, function (xhrObj, textStatus, err) {
+        $('#' + container + ' .location-data').empty();
+        $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+        $('#' + container + ' .colony-data').empty();
+        $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+      });
+    }, function (xhrObj, textStatus, err) {
+      alert(err);
+    });
+  }
+}
+function searchZipSelected(container, sepomex_id) {
+  var zip_code = $('#' + container + ' .zip-code').val();
+  $('#' + container + ' .sepomex-id').val('');
+
+  if (zip_code.length == 5) {
+    var data = {
+      'zip_code': zip_code
+    };
+    RequestObject.AjaxJson('POST', 'sepomex/get-search-zip-code', data).then(function (response) {
+      var state = response.data[0].state;
+      var location = response.data[0].location;
+      var colonies = response.data;
+      $('#' + container + ' .state-data').val(state);
+      var data = {
+        state: state
+      };
+      RequestObject.AjaxJson('POST', 'sepomex/get-location-by-state', data).then(function (response) {
+        $('#' + container + ' .location-data').removeAttr('disabled');
+        $('#' + container + ' .location-data').empty();
+        $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+        response.data.forEach(function (element) {
+          $('#' + container + ' .location-data').append('<option value="' + element.location + '">' + element.location + '</option>');
+        });
+        $('#' + container + ' .location-data').val(location);
+        $('#' + container + ' .colony-data').removeAttr('disabled');
+        $('#' + container + ' .colony-data').empty();
+        $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+        colonies.forEach(function (element) {
+          $('#' + container + ' .colony-data').append('<option value="' + element.id + '">' + element.name + ' - ' + element.zip_code + '</option>');
+        });
+        $('#' + container + ' .colony-data').val(sepomex_id);
+        $('#' + container + ' .sepomex-id').val(sepomex_id);
+      }, function (xhrObj, textStatus, err) {
+        $('#' + container + ' .location-data').empty();
+        $('#' + container + ' .location-data').append('<option value="S">Seleccionar</option>');
+        $('#' + container + ' .colony-data').empty();
+        $('#' + container + ' .colony-data').append('<option value="S">Seleccionar</option>');
+      });
+    }, function (xhrObj, textStatus, err) {
+      alert(err);
+    });
+  }
 }
 
 /***/ }),

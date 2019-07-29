@@ -35,8 +35,8 @@
 
                 <div class="form-group">
 
-                    @if (Route::has('admin.password.request'))
-                    <a href="{{ route('admin.password.request') }}" class="text-muted float-right"><small>¿Olvidaste tú
+                    @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="text-muted float-right"><small>¿Olvidaste tú
                             contraseña?</small></a>
                     @endif
 

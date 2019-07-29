@@ -847,8 +847,8 @@ File: Icons Css File
 
 @font-face {
   font-family: "Material Design Icons";
-  src: url("/admin/fonts/materialdesignicons-webfont.eot?v=3.4.93");
-  src: url("/admin/fonts/materialdesignicons-webfont.eot?#iefix&v=3.4.93") format("embedded-opentype"), url("/admin/fonts/materialdesignicons-webfont.woff2?v=3.4.93") format("woff2"), url("/admin/fonts/materialdesignicons-webfont.woff?v=3.4.93") format("woff"), url("/admin/fonts/materialdesignicons-webfont.ttf?v=3.4.93") format("truetype"), url("/admin/fonts/materialdesignicons-webfont.svg?v=3.4.93#materialdesigniconsregular") format("svg");
+  src: url(/fonts/materialdesignicons-webfont.eot?59860d9ae9f90760cfd799045dbed54a);
+  src: url(/fonts/materialdesignicons-webfont.eot?59860d9ae9f90760cfd799045dbed54a) format("embedded-opentype"), url(/fonts/materialdesignicons-webfont.woff2?a57de8f637ace1ee9a1fd56d28c1c8ce) format("woff2"), url(/fonts/materialdesignicons-webfont.woff?da1033342b6da4440dc7ee3646ca9a60) format("woff"), url(/fonts/materialdesignicons-webfont.ttf?5a293a273bee8d740a045d9922b9a9ae) format("truetype"), url(/fonts/materialdesignicons-webfont.svg?40cd6e2c274fae87190a1c094df6a519) format("svg");
   font-weight: normal;
   font-style: normal;
 }

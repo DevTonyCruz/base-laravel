@@ -30,7 +30,6 @@ $('#select-all').click(function(event) {
     }
 });
 
-
 export function string_to_slug (str) {
     str = str.replace(/^\s+|\s+$/g, ''); // trim
     str = str.toLowerCase();
